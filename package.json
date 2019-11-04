@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "braces": "^3.0.2",
     "expo": "^35.0.0",
     "mem": "^5.1.1",
     "react": "16.8.3",
