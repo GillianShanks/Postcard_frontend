@@ -1,10 +1,11 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import GigsScreen from '../screens/GigsScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import MediaScreen from '../screens/MediaScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 const config = Platform.select({
@@ -12,6 +13,7 @@ const config = Platform.select({
   default: {},
 });
 
+//Home Page
 const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
@@ -26,8 +28,8 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-home`
+          : 'md-home'
       }
     />
   ),
@@ -35,42 +37,80 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
-const LinksStack = createStackNavigator(
+//Profile Page
+const ProfileStack = createStackNavigator(
   {
-    Links: LinksScreen,
+    Profile: ProfileScreen,
   },
   config
 );
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+ProfileStack.navigationOptions = {
+  tabBarLabel: 'Profile',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-person' : 'md-person'} />
   ),
 };
 
-LinksStack.path = '';
+ProfileStack.path = '';
 
-const SettingsStack = createStackNavigator(
+//Gigs List Page
+const GigsStack = createStackNavigator(
   {
-    Settings: SettingsScreen,
+    Gigs: GigsScreen,
   },
   config
 );
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+GigsStack.navigationOptions = {
+  tabBarLabel: 'Gigs',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-albums' : 'md-albums'} />
   ),
 };
 
-SettingsStack.path = '';
+GigsStack.path = '';
+
+//Media Page
+const MediaStack = createStackNavigator(
+  {
+    Media: MediaScreen,
+  },
+  config
+);
+
+MediaStack.navigationOptions = {
+  tabBarLabel: 'Media',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-photos' : 'md-photos'} />
+  ),
+};
+
+MediaStack.path = '';
+
+//Settings Page
+// const SettingsStack = createStackNavigator(
+//   {
+//     Settings: SettingsScreen,
+//   },
+//   config
+// );
+//
+// SettingsStack.navigationOptions = {
+//   tabBarLabel: 'Settings',
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+//   ),
+// };
+//
+// SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
-  LinksStack,
-  SettingsStack,
+  ProfileStack,
+  GigsStack,
+  MediaStack,
+  // SettingsStack,
 });
 
 tabNavigator.path = '';
