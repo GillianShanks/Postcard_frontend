@@ -5,7 +5,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import GigsScreen from '../screens/GigsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import MediaScreen from '../screens/MediaScreen';
+import VenuesScreen from '../screens/VenuesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 const config = Platform.select({
@@ -71,22 +71,22 @@ GigsStack.navigationOptions = {
 
 GigsStack.path = '';
 
-//Media Page
-const MediaStack = createStackNavigator(
+//Venues Page
+const VenuesStack = createStackNavigator(
   {
-    Media: MediaScreen,
+    Venues: VenuesScreen,
   },
   config
 );
 
-MediaStack.navigationOptions = {
-  tabBarLabel: 'Media',
+VenuesStack.navigationOptions = {
+  tabBarLabel: 'Venues',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-photos' : 'md-photos'} />
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-map' : 'md-map'} />
   ),
 };
 
-MediaStack.path = '';
+VenuesStack.path = '';
 
 //Settings Page
 // const SettingsStack = createStackNavigator(
@@ -109,7 +109,7 @@ const tabNavigator = createBottomTabNavigator({
   HomeStack,
   ProfileStack,
   GigsStack,
-  MediaStack,
+  VenuesStack,
   // SettingsStack,
 });
 
