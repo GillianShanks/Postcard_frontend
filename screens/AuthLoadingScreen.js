@@ -10,8 +10,8 @@ import {
 import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation';
 
 class AuthLoadingScreen extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this._bootstrapAsync();
   }
 
@@ -21,7 +21,7 @@ class AuthLoadingScreen extends React.Component {
 
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
-    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+    this.props.navigation.navigate(userToken ? 'Main' : 'Login');
   };
 
   // Render any loading content that you like here
@@ -34,5 +34,12 @@ class AuthLoadingScreen extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    // flex:1,
+    backgroundColor: '#fff',
+  }
+});
 
 export default AuthLoadingScreen;

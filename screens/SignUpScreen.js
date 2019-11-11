@@ -15,28 +15,24 @@ class SignUpScreen extends React.Component {
     title: 'Please register:',
   };
 
-  signUpSubmit(){
-
-  }
-
   render() {
     return (
       <View style={styles.container}>
-        <Button onPress={this.signUpSubmit} title="Sign up!"/>
+        <Button onPress={this._signInAsync} title="Sign up!"/>
       </View>
     );
   }
 
-  // _signInAsync = async () => {
-  //   await AsyncStorage.setItem('userToken', 'abc');
-  //   this.props.navigation.navigate('App');
-  // };
+  _signInAsync = async () => {
+    await AsyncStorage.setItem('userToken', 'abc');
+    this.props.navigation.navigate('Main');
+  };
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
-    backgroundColor: 'lilac',
+    // flex:1,
+    backgroundColor: '#fff',
   }
 });
 
