@@ -9,41 +9,49 @@ import {
   Button,
   TouchableOpacity,
   View,
+  AsyncStorage,
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
 
-export default function HomeScreen() {
-  return (
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}>
+class HomeScreen extends React.Component {
+  constructor(props){
+    super(props);
+  }
+
+  _signOutAsync = async () => {
+    await AsyncStorage.clear();
+    this.props.navigation.navigate('AuthLoading');
+  };
+
+  render(){
+    return (
+      <View style={styles.container}>
         <View style={styles.welcomeContainer}>
           <Image
-            source={
-              __DEV__
-                ? require('../assets/images/yaas.gif')
-                : require('../assets/images/yaas.gif')
-            }
-            style={styles.welcomeImage}
+          source={
+            __DEV__
+            ? require('../assets/images/yaas.gif')
+            : require('../assets/images/yaas.gif')
+          }
+          style={styles.welcomeImage}
           />
         </View>
 
         <View style={styles.getStartedContainer}>
+          <Text style={styles.getStartedText}>Welcome To  Postcard</Text>
 
-          <Text style={styles.getStartedText}>Welcome To Postcard</Text>
-
-          <TouchableOpacity style={styles.button} >
-            <Text style={styles.buttonText}>FIRST CLICK BITCHES!</Text>
+          <TouchableOpacity style={styles.button}>
+            <Button style={styles.buttonText} onPress={this._signOutAsync} title="Sign out!"/>
           </TouchableOpacity>
-
         </View>
-      </ScrollView>
 
-    </View>
-  );
+      </View>
+    );
+  }
 }
+
+
 
 HomeScreen.navigationOptions = {
   header: null,
@@ -53,20 +61,20 @@ function DevelopmentModeNotice() {
   if (__DEV__) {
     const learnMoreButton = (
       <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
-        Learn more
+      Learn more
       </Text>
     );
 
     return (
       <Text style={styles.developmentModeText}>
-        Development mode is enabled: your app will be slower but you can use
-        useful development tools. {learnMoreButton}
+      Development mode is enabled: your app will be slower but you can use
+      useful development tools. {learnMoreButton}
       </Text>
     );
   } else {
     return (
       <Text style={styles.developmentModeText}>
-        You are not in development mode: your app will run at full speed.
+      You are not in development mode: your app will run at full speed.
       </Text>
     );
   }
@@ -89,9 +97,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  contentContainer: {
-    paddingTop: 30,
-  },
+  // contentContainer: {
+  //   paddingTop: 30,
+  // },
   welcomeContainer: {
     alignItems: 'center',
     marginTop: 10,
@@ -123,3 +131,5 @@ const styles = StyleSheet.create({
     fontWeight: '900'
   }
 });
+
+export default HomeScreen;
