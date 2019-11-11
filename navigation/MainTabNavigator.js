@@ -12,28 +12,28 @@ const config = Platform.select({
   default: {},
 });
 
-const HomeStack = createStackNavigator(
-  {
-    Home: HomeScreen,
-  },
-  config
-);
-
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  ),
-};
-
-HomeStack.path = '';
+// const HomeStack = createStackNavigator(
+//   {
+//     Home: HomeScreen,
+//   },
+//   config
+// );
+//
+// HomeStack.navigationOptions = {
+//   tabBarLabel: 'Venues',
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon
+//       focused={focused}
+//       name={
+//         Platform.OS === 'ios'
+//           ? `ios-information-circle${focused ? '' : '-outline'}`
+//           : 'md-information-circle'
+//       }
+//     />
+//   ),
+// };
+//
+// HomeStack.path = '';
 
 const LinksStack = createStackNavigator(
   {
@@ -68,7 +68,6 @@ SettingsStack.navigationOptions = {
 SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
-  HomeStack,
   LinksStack,
   SettingsStack,
 });
