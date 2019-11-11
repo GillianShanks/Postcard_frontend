@@ -19,10 +19,10 @@ class HomeScreen extends React.Component {
     super(props);
   }
 
-  _signOutAsync = async () => {
-    await AsyncStorage.clear();
-    this.props.navigation.navigate('AuthLoading');
-  };
+  // _signOutAsync = async () => {
+  //   await AsyncStorage.clear();
+  //   this.props.navigation.navigate('AuthLoading');
+  // };
 
   render(){
     return (
@@ -42,7 +42,7 @@ class HomeScreen extends React.Component {
           <Text style={styles.getStartedText}>Welcome To  Postcard</Text>
 
           <TouchableOpacity style={styles.button}>
-            <Button style={styles.buttonText} onPress={this._signOutAsync} title="Sign out!"/>
+            <Button style={styles.buttonText} title="Sign out!"/>
           </TouchableOpacity>
         </View>
 
