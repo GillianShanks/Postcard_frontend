@@ -6,16 +6,16 @@ import SignUpScreen from '../screens/SignUpScreen';
 import TabBarIcon from '../components/TabBarIcon';
 
 
-const config = Platform.select({
-  web: { headerMode: 'screen' },
-  default: {},
-});
+// const config = Platform.select({
+//   web: { headerMode: 'screen' },
+//   default: {},
+// });
 
 const LogInStack = createStackNavigator(
   {
     SignUp: SignUpScreen,
   },
-  config,
+  // config,
   // {
   //   navigationOptions: {
   //     tabBarLabel: 'Sign Up',
@@ -34,10 +34,10 @@ const LogInStack = createStackNavigator(
   // {path: ''}
 );
 
-const loginTabNavigator = createBottomTabNavigator({
-  LogInStack,
-});
+// const loginTabNavigator = createBottomTabNavigator({
+//   LogInStack,
+// });
+//
+// loginTabNavigator.path = '';
 
-loginTabNavigator.path = '';
-
-export default loginTabNavigator;
+export default LogInStack;

@@ -34,3 +34,5 @@ class AuthLoadingScreen extends React.Component {
     );
   }
 }
+
+export default AuthLoadingScreen;

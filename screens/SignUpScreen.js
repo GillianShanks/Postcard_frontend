@@ -10,15 +10,19 @@ import {
 import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation';
 
 
-class SignInScreen extends React.Component {
+class SignUpScreen extends React.Component {
   static navigationOptions = {
-    title: 'Please sign in',
+    title: 'Please register:',
   };
+
+  signUpSubmit(){
+
+  }
 
   render() {
     return (
       <View style={styles.container}>
-        <Button title="Sign in!"/>
+        <Button onPress={this.signUpSubmit} title="Sign up!"/>
       </View>
     );
   }
@@ -28,3 +32,12 @@ class SignInScreen extends React.Component {
   //   this.props.navigation.navigate('App');
   // };
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex:1,
+    backgroundColor: 'lilac',
+  }
+});
+
+export default SignUpScreen;
