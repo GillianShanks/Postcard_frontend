@@ -19,14 +19,12 @@ export default class SignUp extends React.Component {
 
     this.saveUserToFirestore = this.saveUserToFirestore.bind(this);
     this.registerUser = this.registerUser.bind(this);
+    this.changeUserType = this.changeUserType.bind(this);
   }
 
-  componentDidUpdate() {
-  // only update chart if the data has changed
-  if (this.state.userType !== this.props.userTypeValue) {
-    this.setState({userType: this.props.userTypeValue})
+  changeUserType(value){
+    this.setState({userType: value});
   }
-}
 
   saveUserToFirestore(userData, userId){
     const userObject = {
@@ -90,6 +88,8 @@ export default class SignUp extends React.Component {
 
     return(
       <ScrollView style={styles.inputContainer}>
+
+        <Text>Enter your details here:</Text>
         <Text>Name:</Text>
 
         <TextInput
@@ -133,7 +133,7 @@ export default class SignUp extends React.Component {
 
         <RadioButtons
           options={options}
-          userType={this.props.userType}/>
+          userType={this.changeUserType}/>
 
         {this.state.userType === 'photographer' ? (
           <ScrollView style={styles.inputContainer}>
@@ -154,7 +154,6 @@ export default class SignUp extends React.Component {
 
         <TouchableHighlight
           onPress={() => {
-            // this.saveUserToFirestore();
             this.registerUser();
           }}
           style={{backgroundColor: 'black'}}>

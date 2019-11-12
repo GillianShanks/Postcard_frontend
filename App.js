@@ -3,6 +3,7 @@ import { Platform, StyleSheet, Text, TextInput, View, FlatList, TouchableHighlig
 import {f, auth, firestore} from './config/config.js';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
+import Access from './components/Access';
 //New Things
 import Content from './components/Content';
 import {createAppContainer} from 'react-navigation';
@@ -20,7 +21,6 @@ class App extends React.Component {
       user: null
     }
 
-    this.changeUserType = this.changeUserType.bind(this);
     this.fetchUserInfo = this.fetchUserInfo.bind(this);
   }
 
@@ -90,10 +90,6 @@ class App extends React.Component {
     }
   }
 
-  changeUserType(value){
-    this.setState({userType: value});
-  }
-
   signUserOut() {
     auth.signOut()
     .then(() => {
@@ -108,12 +104,19 @@ class App extends React.Component {
     const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View></View>;
 
     const MainNavigator = createStackNavigator({
-      Home: {screen: HomeScreen},
-      Profile: {screen: ProfileScreen},
-      Gigs: {screen: GigsScreen}
+      Home: {screen: props => <HomeScreen {...props} screenProps={ this.state.userInfo} />},
+      Profile: {screen: props => <ProfileScreen {...props} screenProps={ this.state.userInfo} />},
+      Gigs: {screen: props => <GigsScreen {...props} screenProps={ this.state.userInfo} />},
+    })
+
+    const AccessNavigator = createStackNavigator({
+      Access: {screen: Access},
+      SignUp: {screen: SignUp},
     })
 
     const AppContainer = createAppContainer(MainNavigator);
+
+    const AccessContainer = createAppContainer(AccessNavigator);
 
     return (
       <View style={styles.container}>
@@ -121,21 +124,15 @@ class App extends React.Component {
 
       {!this.state.loggedIn ? (
       <View>
-      <Login
-      textChangeEmail={email => this.setState({email})}
-      textChangePassword={password => this.setState({password})}
-      loginUser={this.loginUser} />
 
-      <SignUp
-        userType={this.changeUserType}
-        userTypeValue={this.state.userType}
-        registerUser={this.registerUser}
-      />
+      <AccessContainer />
+
       </View>
     ) : (
       <View>
 
       <AppContainer />
+
       <Text>{this.state.loggedIn && this.state.userInfo !== null ? this.state.userInfo.displayName + ' is currently logged in.' : 'Logging in..'}</Text>
 
 
@@ -147,7 +144,7 @@ class App extends React.Component {
 
         <Text
           style={{color: '#fff'}}>
-          Sign the fuck out.
+          Log out.
         </Text>
 
         </TouchableHighlight>
@@ -175,3 +172,13 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+
+// <Login
+// textChangeEmail={email => this.setState({email})}
+// textChangePassword={password => this.setState({password})}
+// loginUser={this.loginUser} />
+// <SignUp
+//   userType={this.changeUserType}
+//   userTypeValue={this.state.userType}
+//   registerUser={this.registerUser}
+// />
