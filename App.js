@@ -1,8 +1,9 @@
 import React from 'react';
 import { Platform, StyleSheet, Text, TextInput, View, FlatList, TouchableHighlight } from 'react-native';
 import {f, auth, firestore} from './config/config.js';
-import Login from './components/Login.js';
-import SignUp from './components/SignUp.js';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
+import AppContainer from './index';
 
 export default class App extends React.Component {
   constructor(props){
@@ -11,11 +12,8 @@ export default class App extends React.Component {
       loggedIn: false,
       userInfo: null,
       user: null
-      // email: '',
-      // password: '',
-      // userType: ''
     }
-    this.registerUser = this.registerUser.bind(this);
+
     this.changeUserType = this.changeUserType.bind(this);
     this.fetchUserInfo = this.fetchUserInfo.bind(this);
   }
@@ -77,7 +75,6 @@ export default class App extends React.Component {
       //
       try {
         let user = await auth.signInWithEmailAndPassword(email, password)
-        //user.sendEmailVerification();
       } catch (error) {
         console.log('error logging in', error);
       }
@@ -91,17 +88,6 @@ export default class App extends React.Component {
     this.setState({userType: value});
   }
 
-
-  registerUser() {
-    const email = this.state.email;
-    const password = this.state.password;
-    console.log(email, password);
-
-    auth.createUserWithEmailAndPassword(email, password)
-    .then((userObj) => console.log(email, password, userObj))
-    .catch(error => console.log('error registering', error));
-  }
-
   signUserOut() {
     auth.signOut()
     .then(() => {
@@ -111,7 +97,6 @@ export default class App extends React.Component {
       console.log('Error:', error);
     })
   }
-
 
   render() {
     const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View></View>;
@@ -128,8 +113,6 @@ export default class App extends React.Component {
       loginUser={this.loginUser} />
 
       <SignUp
-        textChangeEmail={email => this.setState({email})}
-        textChangePassword={password => this.setState({password})}
         userType={this.changeUserType}
         userTypeValue={this.state.userType}
         registerUser={this.registerUser}
@@ -137,7 +120,7 @@ export default class App extends React.Component {
       </View>
     ) : (
       <View>
-      <Text> {this.state.loggedIn && this.state.userInfo !== null ? this.state.userInfo.displayName + ' is' : 'You are'} currently logged in.</Text>
+      <Text>{this.state.loggedIn && this.state.userInfo !== null ? this.state.userInfo.displayName + ' is currently logged in.' : 'Logging in..'}</Text>
         <TouchableHighlight
           onPress={() => {
             this.signUserOut();
@@ -145,15 +128,14 @@ export default class App extends React.Component {
           style={{backgroundColor: 'black'}}>
 
         <Text
-          style={{color: '#fff'}}>Sign the fuck out.
+          style={{color: '#fff'}}>
+          Sign the fuck out.
         </Text>
 
         </TouchableHighlight>
       </View>
 
     )}
-
-
 
       </View>
     )

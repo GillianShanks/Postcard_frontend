@@ -34,7 +34,8 @@ export default class SignUp extends React.Component {
       email: userData.email,
       phoneNumber: userData.phoneNumber,
       user_id: userId,
-      camera: userData.camera
+      camera: userData.camera,
+      userType: userData.userType
     }
 
     firestore.collection(userData.userType).doc(userId).set(userObject);
