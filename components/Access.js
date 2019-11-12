@@ -28,6 +28,8 @@ class Access extends React.Component {
   }
 
   render() {
+    const {navigate} = this.props.navigation;
+
     return (
       <View>
 
@@ -39,7 +41,7 @@ class Access extends React.Component {
       <Button
         title="Sign Up"
         onPress={() => {
-          this.props.navigation.navigate('SignUp');
+          navigate('SignUp');
         }}/>
 
       </View>
