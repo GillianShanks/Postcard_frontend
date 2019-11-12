@@ -15,7 +15,7 @@
   "dependencies": {
     "braces": "^3.0.2",
     "expo": "^35.0.0",
-    "firebase": "^7.2.3",
+    "firebase": "^7.3.0",
     "firebase-admin": "^8.6.0",
     "firebase-functions": "^3.3.0",
     "mem": "^5.1.1",
@@ -25,7 +25,6 @@
     "react-native-gesture-handler": "^1.5.0",
     "react-native-reanimated": "^1.4.0",
     "react-native-screens": "^2.0.0-alpha.8",
-
     "react-native-web": "^0.11.7",
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^1.10.3",

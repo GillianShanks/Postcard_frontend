@@ -133,7 +133,7 @@ class App extends React.Component {
       />
       </View>
     ) : (
-      <View>
+      <View style={styles.main}>
 
       <AppContainer />
       <Text>{this.state.loggedIn && this.state.userInfo !== null ? this.state.userInfo.displayName + ' is currently logged in.' : 'Logging in..'}</Text>
@@ -171,6 +171,10 @@ const styles = StyleSheet.create({
   statusbar: {
     backgroundColor: '#f542da',
     height: 20,
+  },
+  main: {
+    flex: 1,
+    width: '100%'
   }
 });
 
