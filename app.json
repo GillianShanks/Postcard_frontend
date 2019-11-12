@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Postcard",
-    "slug": "Postcard",
+    "name": "Navigation Test",
+    "slug": "NativeNav",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": [
