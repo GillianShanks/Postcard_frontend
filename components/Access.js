@@ -18,14 +18,3 @@ const Access = (props) => {
 }
 
 export default Access;
-
-// <View>
-//   <TouchableOpacity>
-//     <Text>Log in</Text>
-//   </TouchableOpacity>
-//
-//   <TouchableOpacity>
-//     <Text>Sign Up</Text>
-//   </TouchableOpacity>
-//
-// </View>

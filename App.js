@@ -3,9 +3,15 @@ import { Platform, StyleSheet, Text, TextInput, View, FlatList, TouchableHighlig
 import {f, auth, firestore} from './config/config.js';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
-import AppContainer from './index';
+//New Things
+import Content from './components/Content';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+import HomeScreen from './screens/HomeScreen';
+import GigsScreen from './screens/GigsScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -101,6 +107,14 @@ export default class App extends React.Component {
   render() {
     const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View></View>;
 
+    const MainNavigator = createStackNavigator({
+      Home: {screen: HomeScreen},
+      Profile: {screen: ProfileScreen},
+      Gigs: {screen: GigsScreen}
+    })
+
+    const AppContainer = createAppContainer(MainNavigator);
+
     return (
       <View style={styles.container}>
       {statusbar}
@@ -120,7 +134,11 @@ export default class App extends React.Component {
       </View>
     ) : (
       <View>
+
+      <AppContainer />
       <Text>{this.state.loggedIn && this.state.userInfo !== null ? this.state.userInfo.displayName + ' is currently logged in.' : 'Logging in..'}</Text>
+
+
         <TouchableHighlight
           onPress={() => {
             this.signUserOut();
@@ -154,3 +172,5 @@ const styles = StyleSheet.create({
     height: 20,
   }
 });
+
+export default App;
