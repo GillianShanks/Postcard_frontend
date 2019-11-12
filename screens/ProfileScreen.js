@@ -1,30 +1,25 @@
 import React from 'react';
-import { ScrollView, Text, View, StyleSheet } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
+import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 
-export default function ProfileScreen() {
-  return (
-    <ScrollView style={styles.container}>
-
-    <View style={styles.profiles}>
-      <Text>Artist Profile</Text>
-
-    </View>
-    </ScrollView>
-  );
+class ProfileScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Postcard',
+  };
+  render() {
+    const {navigate} = this.props.navigation;
+    return (
+      <View style={styles.container}>
+      <Text>Profile</Text>
+      </View>
+    );
+  }
 }
-
-ProfileScreen.navigationOptions = {
-  title: 'Profile',
-};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff',
-  },
-  profiles: {
-    padding: 10
+    alignItems: 'center',
   }
-});
+})
+
+export default ProfileScreen;

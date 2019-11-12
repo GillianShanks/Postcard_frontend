@@ -1,28 +1,26 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
+import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 
-export default function GigsScreen() {
-  return (
-    <ScrollView style={styles.container}>
-      <View style={styles.gigs}>
-        <Text>Gigs List</Text>
+class GigsScreen extends React.Component {
+
+  static navigationOptions = {
+    title: 'Postcard',
+  };
+  render() {
+    const {navigate} = this.props.navigation;
+    return (
+      <View style={styles.container}>
+        <Text>Gigs</Text>
       </View>
-    </ScrollView>
-  );
+    );
+  }
 }
-
-GigsScreen.navigationOptions = {
-  title: 'Gigs',
-};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff',
-  },
-  gigs: {
-    padding: 10
+    alignItems: 'center',
   }
-});
+})
+
+export default GigsScreen;
