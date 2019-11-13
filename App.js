@@ -11,7 +11,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import VenuesScreen from './screens/VenuesScreen';
 import GigsScreen from './screens/GigsScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
-import JobList from './screens/JobListScreen';
+import JobListScreen from './screens/JobListScreen';
 import ProfileScreen from './screens/ProfileScreen';
 
 class App extends React.Component {
@@ -20,7 +20,8 @@ class App extends React.Component {
     this.state = {
       loggedIn: false,
       userInfo: null,
-      user: null
+      user: null,
+      venues: []
     }
     this.updateAppApp = this.updateAppApp.bind(this);
     this.fetchUserInfo = this.fetchUserInfo.bind(this);
@@ -31,6 +32,7 @@ class App extends React.Component {
       if (user && user.emailVerified){
         this.setState({user, loggedIn: true});
         this.fetchUserInfo();
+        this.fetchVenueInfo();
       } else if (user && user.emailVerified === false) {
         user.sendEmailVerification();
         this.setState({user, loggedIn: false});
@@ -39,6 +41,24 @@ class App extends React.Component {
         this.setState({loggedIn: false, user: null, userInfo: null});
       }
     })
+  }
+
+  fetchVenueInfo(){
+    let allVenues = [];
+
+    try{
+      firestore.collection('venue').get().then((doc) => {
+        doc.forEach(doc => {
+          allVenues.push(doc.data());
+        })
+        this.setState({
+          venues: allVenues
+        })
+      })
+    }
+    catch(error){
+      console.log('error from venue fetch', error);
+    }
   }
 
   fetchUserInfo(){
@@ -92,15 +112,6 @@ class App extends React.Component {
     }
   }
 
-  signUserOut() {
-    auth.signOut()
-    .then(() => {
-      console.log('Logged out...');
-    })
-    .catch((error) => {
-      console.log('Error:', error);
-    })
-  }
 
   updateAppApp(){
     this.setState(this.state);
@@ -110,15 +121,15 @@ class App extends React.Component {
     const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View></View>;
 
     const ArtistNavigator = createStackNavigator({
-      Venues: {screen: props => <VenuesScreen {...props} screenProps={this.state.userInfo} />},
+      Venues: {screen: props => <VenuesScreen {...props} screenProps={[this.state.userInfo, this.state.venues]} />},
       Gigs: {screen: props => <GigsScreen {...props} screenProps={this.state.userInfo} />},
       Profile: {screen: props => <ProfileScreen {...props} screenProps={ this.state.userInfo} />},
     })
 
     const PhotographerNavigator = createStackNavigator({
-      Notifications: {screen: props => <NotificationsScreen {...props} screenProps={this.state.userInfo} />},
-      JobList: {screen: props => <JobListScreen  {...props} screenProps={this.state.userInfo} />},
-      Profile: {screen: props => <ProfileScreen {...props} screenProps={ this.state.userInfo} />},
+      Notifications: {screen: props => <NotificationsScreen {...props} />},
+      JobList: {screen: props => <JobListScreen  {...props} />},
+      Profile: {screen: props => <ProfileScreen {...props} screenProps={ [this.state.userInfo]} />},
     })
 
     const AccessNavigator = createStackNavigator({
@@ -155,20 +166,6 @@ class App extends React.Component {
 
                           <ArtistContainer />
 
-                          <Text>{this.state.loggedIn && this.state.userInfo !== null ? this.state.userInfo.displayName + ' is currently logged in.' : 'Logging in..'}</Text>
-
-
-                          <TouchableHighlight
-                            onPress={() => {
-                              this.signUserOut();
-                            }}
-                            style={{backgroundColor: 'black'}}>
-
-                            <Text style={{color: '#fff'}}>
-                              Log out.
-                            </Text>
-
-                          </TouchableHighlight>
                         </View>
                       )
                       :
@@ -177,19 +174,6 @@ class App extends React.Component {
 
                           <PhotographerContainer />
 
-                          <Text>{this.state.loggedIn && this.state.userInfo !== null ? this.state.userInfo.displayName + ' is currently logged in.' : 'Logging in..'}</Text>
-
-                          <TouchableHighlight
-                            onPress={() => {
-                              this.signUserOut();
-                            }}
-                            style={{backgroundColor: 'black'}}>
-
-                            <Text style={{color: '#fff'}}>
-                              Log out.
-                            </Text>
-
-                          </TouchableHighlight>
                         </View>
                       )
                     }
@@ -230,13 +214,3 @@ const styles = StyleSheet.create({
 });
 
 export default App;
-
-// <Login
-// textChangeEmail={email => this.setState({email})}
-// textChangePassword={password => this.setState({password})}
-// loginUser={this.loginUser} />
-// <SignUp
-//   userType={this.changeUserType}
-//   userTypeValue={this.state.userType}
-//   registerUser={this.registerUser}
-// />
