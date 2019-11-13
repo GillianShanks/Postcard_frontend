@@ -22,6 +22,7 @@ export default class SignUp extends React.Component {
     this.registerUser = this.registerUser.bind(this);
     this.changeUserType = this.changeUserType.bind(this);
     this.checkPassword = this.checkPassword.bind(this);
+    this.validate = this.validate.bind(this);
   }
 
   changeUserType(value){
@@ -72,9 +73,23 @@ export default class SignUp extends React.Component {
     .catch(error => console.log('error registering', error));
   }
 
-  checkPassword(){
-    console.log(this.state.password === this.state.passwordCheck);
-    //return this.state.password === this.state.passwordCheck;
+  validate(){
+    
+    if (this.state.name.trim() === '') {
+      this.setState({ nameError: 'Name required..'});
+    } else if (this.state.email.trim() === '') {
+      this.setState({ emailError: 'Email required..'});
+    } else if (this.state.password.trim() === '') {
+      this.setState({ passwordError: 'Password required..'});
+    } else if (this.state.passwordCheck.trim() === '' || this.state.passwordCheck.trim() !== this.state.password.trim()) {
+      this.setState({ passwordCheckError: "Passwords don't match!"});
+    } else if (this.state.phoneNumber.trim() === '') {
+      this.setState({ phoneNumberError: 'Email required..'});
+    } else if (this.state.userType.trim() === '') {
+      this.setState({ userType: 'Are you a musician or a shooter?'});
+    } else if (this.state.userType === 'photographer' && this.state.camera.trim() === '') {
+      this.setState({ userType: 'Camera details required..'});
+    }
   }
 
   render(){
@@ -93,6 +108,8 @@ export default class SignUp extends React.Component {
       },
     ];
 
+    const validations = this.state.name.trim() === "" || this.state.email.trim() === "" || this.state.password.trim() === "" || this.state.passwordCheck.trim() === "" || this.state.phoneNumber.trim() === "" || this.state.userType.trim() === "";
+
     return(
       <ScrollView style={styles.inputContainer}>
 
@@ -106,7 +123,7 @@ export default class SignUp extends React.Component {
           }}
           value={this.state.name}
           placeholder="Type your name here.." />
-        {this.state.nameError && (<Text style={{color: "red"}}>{this.state.nameError}</Text>)}
+        {!this.state.name && (<Text style={{color: "red"}}>{this.state.nameError}</Text>)}
 
 
         <Text>Email:</Text>
@@ -119,6 +136,8 @@ export default class SignUp extends React.Component {
           keyboardType={'email-address'}
           value={this.state.email} />
 
+        {!this.state.email && (<Text style={{color: "red"}}>{this.state.emailError}</Text>)}
+
         <Text>Password:</Text>
 
         <TextInput
@@ -129,6 +148,8 @@ export default class SignUp extends React.Component {
           secureTextEntry={true}
           value={this.state.password}/>
 
+          {!this.state.password && (<Text style={{color: "red"}}>{this.state.passwordError}</Text>)}
+
         <Text>Retype Password:</Text>
 
         <TextInput
@@ -138,6 +159,9 @@ export default class SignUp extends React.Component {
           }}
           secureTextEntry={true}
           value={this.state.passwordCheck}/>
+          {this.state.passwordCheckError && (<Text style={{color: "red"}}>{this.state.passwordCheckError}</Text>)}
+
+        {!this.state.passwordCheck && (<Text style={{color: "red"}}>{this.state.passwordCheckError}</Text>)}
 
         <Text>Phone number:</Text>
 
@@ -148,6 +172,8 @@ export default class SignUp extends React.Component {
           }}
           keyboardType={'number-pad'}
           value={this.state.phoneNumber}/>
+
+          {!this.state.phoneNumber && (<Text style={{color: "red"}}>{this.state.phoneNumberError}</Text>)}
 
         <Text>I am </Text>
 
@@ -160,7 +186,7 @@ export default class SignUp extends React.Component {
             <Text> Which camera do you have?</Text>
 
             <TextInput
-            styles={styles.input}
+            style={styles.input}
             onChangeText={(cameraInput) => {
               this.setState({camera: cameraInput})
             }}
@@ -174,9 +200,9 @@ export default class SignUp extends React.Component {
 
         <TouchableHighlight
           onPress={() => {
-            if (this.state.name.trim() === "") {
-              this.setState({ nameError: 'Input required...'});
-              console.log('from inside the sign up click','no name');
+            if (validations) {
+              this.validate();
+              //this.setState({ nameError: 'Input required...'});
             } else {
               this.setState({nameError: null})
               this.registerUser();
@@ -209,16 +235,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     height: 35,
     borderWidth: 1
-  },
-  addButton: {
-    width: 100,
-    backgroundColor: '#f542da',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  addButtonText: {
-    color: '#171717',
-    fontSize: 18,
-    fontWeight: '700'
   }
 });
