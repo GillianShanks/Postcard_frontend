@@ -8,8 +8,10 @@ import Access from './components/Access';
 import Content from './components/Content';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import HomeScreen from './screens/HomeScreen';
+import VenuesScreen from './screens/VenuesScreen';
 import GigsScreen from './screens/GigsScreen';
+import NotificationsScreen from './screens/NotificationsScreen';
+import JobList from './screens/JobListScreen';
 import ProfileScreen from './screens/ProfileScreen';
 
 class App extends React.Component {
@@ -103,10 +105,16 @@ class App extends React.Component {
   render() {
     const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View></View>;
 
-    const MainNavigator = createStackNavigator({
-      Home: {screen: props => <HomeScreen {...props} screenProps={ this.state.userInfo} />},
+    const ArtistNavigator = createStackNavigator({
+      Venues: {screen: props => <VenuesScreen {...props} screenProps={this.state.userInfo} />},
+      Gigs: {screen: props => <GigsScreen {...props} screenProps={this.state.userInfo} />},
       Profile: {screen: props => <ProfileScreen {...props} screenProps={ this.state.userInfo} />},
-      Gigs: {screen: props => <GigsScreen {...props} screenProps={ this.state.userInfo} />},
+    })
+
+    const PhotographerNavigator = createStackNavigator({
+      Notifications: {screen: props => <NotificationsScreen {...props} screenProps={this.state.userInfo} />},
+      JobList: {screen: props => <JobListScreen  {...props} screenProps={this.state.userInfo} />},
+      Profile: {screen: props => <ProfileScreen {...props} screenProps={ this.state.userInfo} />},
     })
 
     const AccessNavigator = createStackNavigator({
@@ -114,43 +122,85 @@ class App extends React.Component {
       SignUp: {screen: SignUp},
     })
 
-    const AppContainer = createAppContainer(MainNavigator);
+    const ArtistContainer = createAppContainer(ArtistNavigator);
+    const PhotographerContainer = createAppContainer(PhotographerNavigator);
 
     const AccessContainer = createAppContainer(AccessNavigator);
 
     return (
       <View style={styles.container}>
-      {statusbar}
+        {statusbar}
 
-      {!this.state.loggedIn ? (
-      <View style={styles.main}>
+        {!this.state.loggedIn ?
+          (
+            <View style={styles.main}>
 
-      <AccessContainer />
+              <AccessContainer />
 
-      </View>
-    ) : (
-      <View style={styles.main}>
+            </View>
+          )
+          :
+          (
+            <View>
+              {this.state.loggedIn && this.state.userInfo !== null ?
+                (
+                  <View>
+                    {this.state.userInfo.userType === "artist" ?
+                      (
+                        <View style={styles.main}>
 
-      <AppContainer />
+                          <ArtistContainer />
 
-      <Text>{this.state.loggedIn && this.state.userInfo !== null ? this.state.userInfo.displayName + ' is currently logged in.' : 'Logging in..'}</Text>
+                          <Text>{this.state.loggedIn && this.state.userInfo !== null ? this.state.userInfo.displayName + ' is currently logged in.' : 'Logging in..'}</Text>
 
 
-        <TouchableHighlight
-          onPress={() => {
-            this.signUserOut();
-          }}
-          style={{backgroundColor: 'black'}}>
+                          <TouchableHighlight
+                            onPress={() => {
+                              this.signUserOut();
+                            }}
+                            style={{backgroundColor: 'black'}}>
 
-        <Text
-          style={{color: '#fff'}}>
-          Log out.
-        </Text>
+                            <Text style={{color: '#fff'}}>
+                              Log out.
+                            </Text>
 
-        </TouchableHighlight>
-      </View>
+                          </TouchableHighlight>
+                        </View>
+                      )
+                      :
+                      (
+                        <View style={styles.main}>
 
-    )}
+                          <PhotographerContainer />
+
+                          <Text>{this.state.loggedIn && this.state.userInfo !== null ? this.state.userInfo.displayName + ' is currently logged in.' : 'Logging in..'}</Text>
+
+                          <TouchableHighlight
+                            onPress={() => {
+                              this.signUserOut();
+                            }}
+                            style={{backgroundColor: 'black'}}>
+
+                            <Text style={{color: '#fff'}}>
+                              Log out.
+                            </Text>
+
+                          </TouchableHighlight>
+                        </View>
+                      )
+                    }
+                  </View>
+                )
+                :
+                (
+                  <View>
+                    <Text>Logging in...</Text>
+                  </View>
+                )
+              }
+            </View>
+          )
+        }
 
       </View>
     )

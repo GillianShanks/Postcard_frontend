@@ -5,6 +5,11 @@ import RadioButtons from './RadioButtons.js';
 
 //name, email, phone number, camera details, rating (starts 0)
 export default class SignUp extends React.Component {
+
+  static navigationOptions = {
+    title: 'Postcard - Sign Up',
+  };
+
   constructor(props){
     super(props);
     this.state = {
