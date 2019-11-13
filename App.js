@@ -123,7 +123,7 @@ class App extends React.Component {
     const ArtistNavigator = createStackNavigator({
       Venues: {screen: props => <VenuesScreen {...props} screenProps={[this.state.userInfo, this.state.venues]} />},
       Gigs: {screen: props => <GigsScreen {...props} screenProps={this.state.userInfo} />},
-      Profile: {screen: props => <ProfileScreen {...props} screenProps={ this.state.userInfo} />},
+      Profile: {screen: props => <ProfileScreen {...props} screenProps={ [this.state.userInfo]} />},
     })
 
     const PhotographerNavigator = createStackNavigator({
