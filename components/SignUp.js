@@ -26,7 +26,7 @@ export default class SignUp extends React.Component {
     this.saveUserToFirestore = this.saveUserToFirestore.bind(this);
     this.registerUser = this.registerUser.bind(this);
     this.changeUserType = this.changeUserType.bind(this);
-    this.checkPassword = this.checkPassword.bind(this);
+    this.validate = this.validate.bind(this);
   }
 
   changeUserType(value){
@@ -74,12 +74,40 @@ export default class SignUp extends React.Component {
       updateUser.updateProfile({displayName: userData.displayName});
       this.saveUserToFirestore(userData, updateUser.uid);
     })
-    .catch(error => console.log('error registering', error));
+    .catch(error =>  {if (error.code === "auth/invalid-email") {
+      this.setState({emailError: "Please enter a valid email"});
+    } else if (error.code === "auth/email-already-in-use") {
+      this.setState({emailError: "The email is already in our system!"});
+    } else if (error.code === "auth/weak-password") {
+      this.setState({passwordError: "Password needs to have 6 characters"})
+    }
+    console.log(error);});
   }
 
-  checkPassword(){
-    console.log(this.state.password === this.state.passwordCheck);
-    //return this.state.password === this.state.passwordCheck;
+//React Native doesn't have a proper Form that can check all inputs at the same time
+//This is why it checks every textinput separately. So if you were to leave Name and email empty, it will only show the very first error it finds i.e. Name required;
+  validate(){
+
+    switch ('') {
+      case this.state.name.trim():
+        this.setState({ nameError: 'Name required..'});
+        break;
+      case this.state.email.trim():
+        this.setState({ emailError: 'Email required..'});
+        break;
+      case this.state.password.trim():
+        this.setState({ passwordError: 'Password required..'});
+        break;
+      case this.state.passwordCheck.trim():
+        this.setState({ passwordCheckError: 'Please re-enter password'});
+        break;
+      case this.state.phoneNumber.trim():
+        this.setState({ phoneNumberError: 'Phone number required..'});
+        break;
+      case this.state.userType.trim():
+        this.setState({ userTypeError: 'Please select a user..'});
+        break;
+    }
   }
 
   render(){
@@ -98,6 +126,8 @@ export default class SignUp extends React.Component {
       },
     ];
 
+    const validations = this.state.name.trim() === "" || this.state.email.trim() === "" || this.state.password.trim() === "" || this.state.passwordCheck.trim() === "" || this.state.phoneNumber.trim() === "" || this.state.userType.trim() === "" || (this.state.password.trim() !== this.state.passwordCheck.trim()) || (this.state.userType.trim() === "photographer" && this.state.camera.trim() === "");
+
     return(
       <ScrollView style={styles.inputContainer}>
 
@@ -111,7 +141,7 @@ export default class SignUp extends React.Component {
           }}
           value={this.state.name}
           placeholder="Type your name here.." />
-        {this.state.nameError && (<Text style={{color: "red"}}>{this.state.nameError}</Text>)}
+        {!this.state.name && (<Text style={{color: "red"}}>{this.state.nameError}</Text>)}
 
 
         <Text>Email:</Text>
@@ -124,6 +154,9 @@ export default class SignUp extends React.Component {
           keyboardType={'email-address'}
           value={this.state.email} />
 
+        {!this.state.email && (<Text style={{color: "red"}}>{this.state.emailError}</Text>)}
+        {this.state.emailError && (<Text style={{color: "red"}}>{this.state.emailError}</Text>)}
+
         <Text>Password:</Text>
 
         <TextInput
@@ -133,6 +166,8 @@ export default class SignUp extends React.Component {
           }}
           secureTextEntry={true}
           value={this.state.password}/>
+
+        {!this.state.password && (<Text style={{color: "red"}}>{this.state.passwordError}</Text>)}
 
         <Text>Retype Password:</Text>
 
@@ -144,6 +179,12 @@ export default class SignUp extends React.Component {
           secureTextEntry={true}
           value={this.state.passwordCheck}/>
 
+        {!this.state.passwordCheck && (<Text style={{color: "red"}}>{this.state.passwordCheckError}</Text>)}
+
+        {this.state.passwordCheck.length >= 1 && this.state.password !== this.state.passwordCheck ? (<Text style={{color: "red"}}>Passwords don't match</Text>) : (<Text></Text>)}
+
+
+
         <Text>Phone number:</Text>
 
         <TextInput
@@ -154,22 +195,28 @@ export default class SignUp extends React.Component {
           keyboardType={'number-pad'}
           value={this.state.phoneNumber}/>
 
+        {!this.state.phoneNumber && (<Text style={{color: "red"}}>{this.state.phoneNumberError}</Text>)}
+
         <Text>I am </Text>
 
         <RadioButtons
           options={options}
           userType={this.changeUserType}/>
 
+        {!this.state.userType && (<Text style={{color: "red"}}>{this.state.userTypeError}</Text>)}
+
         {this.state.userType === 'photographer' ? (
           <ScrollView style={styles.inputContainer}>
             <Text> Which camera do you have?</Text>
 
             <TextInput
-            styles={styles.input}
+            style={styles.input}
             onChangeText={(cameraInput) => {
               this.setState({camera: cameraInput})
             }}
             value={this.state.camera} />
+
+            {!this.state.camera && (<Text style={{color: "red"}}>{this.state.userTypeError}</Text>)}
 
           </ScrollView>
         ) : (
@@ -179,19 +226,18 @@ export default class SignUp extends React.Component {
 
         <TouchableHighlight
           onPress={() => {
-            if (this.state.name.trim() === "") {
-              this.setState({ nameError: 'Input required...'});
-              console.log('from inside the sign up click','no name');
+            if (validations) {
+              this.validate();
             } else {
-              this.setState({nameError: null})
               this.registerUser();
             }
 
           }}
           style={{backgroundColor: 'black'}}>
 
-        <Text
-        style={{color: '#fff'}}>Sign Up</Text>
+          <Text
+            style={{color: '#fff'}}>Sign Up</Text>
+
         </TouchableHighlight>
 
       </ScrollView>
@@ -214,16 +260,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     height: 35,
     borderWidth: 1
-  },
-  addButton: {
-    width: 100,
-    backgroundColor: '#f542da',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  addButtonText: {
-    color: '#171717',
-    fontSize: 18,
-    fontWeight: '700'
   }
 });
