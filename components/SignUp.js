@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TextInput, StyleSheet, TouchableHighlight, ScrollView} from 'react-native';
+import { Text, TextInput, StyleSheet, TouchableHighlight, ScrollView } from 'react-native';
 import {f, auth, firestore} from '../config/config.js';
 import RadioButtons from './RadioButtons.js';
 
@@ -11,15 +11,17 @@ export default class SignUp extends React.Component {
       name: '',
       email: '',
       password: '',
+      passwordCheck: '',
       phoneNumber: '',
       userType: '',
-      camera: '',
-      rating: 0
+      camera: ''
+      //rating: 0
     }
 
     this.saveUserToFirestore = this.saveUserToFirestore.bind(this);
     this.registerUser = this.registerUser.bind(this);
     this.changeUserType = this.changeUserType.bind(this);
+    this.checkPassword = this.checkPassword.bind(this);
   }
 
   changeUserType(value){
@@ -70,6 +72,11 @@ export default class SignUp extends React.Component {
     .catch(error => console.log('error registering', error));
   }
 
+  checkPassword(){
+    console.log(this.state.password === this.state.passwordCheck);
+    //return this.state.password === this.state.passwordCheck;
+  }
+
   render(){
     const options = [
       {
@@ -97,7 +104,10 @@ export default class SignUp extends React.Component {
           onChangeText={(name) => {
             this.setState({name})
           }}
-          value={this.state.name}/>
+          value={this.state.name}
+          placeholder="Type your name here.." />
+        {this.state.nameError && (<Text style={{color: "red"}}>{this.state.nameError}</Text>)}
+
 
         <Text>Email:</Text>
 
@@ -107,7 +117,7 @@ export default class SignUp extends React.Component {
             this.setState({email: emailInput});
           }}
           keyboardType={'email-address'}
-          value={this.state.email}/>
+          value={this.state.email} />
 
         <Text>Password:</Text>
 
@@ -118,6 +128,16 @@ export default class SignUp extends React.Component {
           }}
           secureTextEntry={true}
           value={this.state.password}/>
+
+        <Text>Retype Password:</Text>
+
+        <TextInput
+          style={styles.input}
+          onChangeText={(passwordInput) => {
+            this.setState({passwordCheck: passwordInput});
+          }}
+          secureTextEntry={true}
+          value={this.state.passwordCheck}/>
 
         <Text>Phone number:</Text>
 
@@ -148,13 +168,20 @@ export default class SignUp extends React.Component {
 
           </ScrollView>
         ) : (
-          <View></View>
+          <ScrollView></ScrollView>
         )}
 
 
         <TouchableHighlight
           onPress={() => {
-            this.registerUser();
+            if (this.state.name.trim() === "") {
+              this.setState({ nameError: 'Input required...'});
+              console.log('from inside the sign up click','no name');
+            } else {
+              this.setState({nameError: null})
+              this.registerUser();
+            }
+
           }}
           style={{backgroundColor: 'black'}}>
 
@@ -179,7 +206,7 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: 'lavender',
     flex: 1,
-    fontSize: 18,
+    fontSize: 14,
     height: 35,
     borderWidth: 1
   },
