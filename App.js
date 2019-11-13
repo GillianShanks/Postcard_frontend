@@ -20,7 +20,8 @@ class App extends React.Component {
     this.state = {
       loggedIn: false,
       userInfo: null,
-      user: null
+      user: null,
+      venues: []
     }
 
     this.fetchUserInfo = this.fetchUserInfo.bind(this);
@@ -31,6 +32,7 @@ class App extends React.Component {
       if (user && user.emailVerified){
         this.setState({user, loggedIn: true});
         this.fetchUserInfo();
+        this.fetchVenueInfo();
       } else if (user && user.emailVerified === false) {
         user.sendEmailVerification();
         this.setState({user, loggedIn: false});
@@ -39,6 +41,24 @@ class App extends React.Component {
         this.setState({loggedIn: false, user: null, userInfo: null});
       }
     })
+  }
+
+  fetchVenueInfo(){
+    let allVenues = [];
+
+    try{
+      firestore.collection('venue').get().then((doc) => {
+        doc.forEach(doc => {
+          allVenues.push(doc.data());
+        })
+        this.setState({
+          venues: allVenues
+        })
+      })
+    }
+    catch(error){
+      console.log('error from venue fetch', error);
+    }
   }
 
   fetchUserInfo(){
@@ -97,9 +117,9 @@ class App extends React.Component {
     const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View></View>;
 
     const ArtistNavigator = createStackNavigator({
-      Venues: {screen: props => <VenuesScreen {...props}  />},
-      Gigs: {screen: props => <GigsScreen {...props} />},
-      Profile: {screen: props => <ProfileScreen {...props} screenProps={ [this.state.userInfo]} />},
+      Venues: {screen: props => <VenuesScreen {...props} screenProps={[this.state.userInfo, this.state.venues]} />},
+      Gigs: {screen: props => <GigsScreen {...props} screenProps={this.state.userInfo} />},
+      Profile: {screen: props => <ProfileScreen {...props} screenProps={ this.state.userInfo} />},
     })
 
     const PhotographerNavigator = createStackNavigator({
