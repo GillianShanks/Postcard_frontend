@@ -3,6 +3,11 @@ import {View, Text, TextInput, StyleSheet, Button, TouchableHighlight} from 'rea
 import {f, auth, firestore} from '../config/config.js';
 
 export default class Login extends React.Component {
+
+  static navigationOptions = {
+    title: 'Postcard - Log In',
+  };
+
   constructor(props){
     super(props);
     this.state = {
