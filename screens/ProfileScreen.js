@@ -9,7 +9,14 @@ class ProfileScreen extends React.Component {
     const {navigate} = this.props.navigation;
     return (
       <View style={styles.container}>
-      <Text>Profile</Text>
+      <Text>Your Postcard Profile Details:</Text>
+
+      <Text>Name: {this.props.screenProps.displayName}</Text>
+      <Text>Email: {this.props.screenProps.email}</Text>
+      <Text>Phone number: {this.props.screenProps.phoneNumber}</Text>
+      <Text>You are a {this.props.screenProps.userType}</Text>
+      <Text>Camera: {this.props.screenProps.camera}</Text>
+
       </View>
     );
   }
