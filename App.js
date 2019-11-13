@@ -129,7 +129,7 @@ class App extends React.Component {
 
       </View>
     ) : (
-      <View>
+      <View style={styles.main}>
 
       <AppContainer />
 
@@ -168,6 +168,10 @@ const styles = StyleSheet.create({
   statusbar: {
     backgroundColor: '#f542da',
     height: 20,
+  },
+  main: {
+    flex: 1,
+    width: '100%'
   }
 });
 
