@@ -11,7 +11,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import VenuesScreen from './screens/VenuesScreen';
 import GigsScreen from './screens/GigsScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
-import JobList from './screens/JobListScreen';
+import JobListScreen from './screens/JobListScreen';
 import ProfileScreen from './screens/ProfileScreen';
 
 class App extends React.Component {
