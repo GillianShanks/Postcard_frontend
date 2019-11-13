@@ -126,7 +126,7 @@ export default class SignUp extends React.Component {
       },
     ];
 
-    const validations = this.state.name.trim() === "" || this.state.email.trim() === "" || this.state.password.trim() === "" || this.state.passwordCheck.trim() === "" || this.state.phoneNumber.trim() === "" || this.state.userType.trim() === "" || (this.state.password !== this.state.passwordCheck);
+    const validations = this.state.name.trim() === "" || this.state.email.trim() === "" || this.state.password.trim() === "" || this.state.passwordCheck.trim() === "" || this.state.phoneNumber.trim() === "" || this.state.userType.trim() === "" || (this.state.password.trim() !== this.state.passwordCheck.trim()) || (this.state.userType.trim() === "photographer" && this.state.camera.trim() === "");
 
     return(
       <ScrollView style={styles.inputContainer}>
@@ -215,6 +215,8 @@ export default class SignUp extends React.Component {
               this.setState({camera: cameraInput})
             }}
             value={this.state.camera} />
+
+            {!this.state.camera && (<Text style={{color: "red"}}>{this.state.userTypeError}</Text>)}
 
           </ScrollView>
         ) : (
