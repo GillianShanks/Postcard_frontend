@@ -26,7 +26,6 @@ export default class SignUp extends React.Component {
     this.saveUserToFirestore = this.saveUserToFirestore.bind(this);
     this.registerUser = this.registerUser.bind(this);
     this.changeUserType = this.changeUserType.bind(this);
-    this.checkPassword = this.checkPassword.bind(this);
     this.validate = this.validate.bind(this);
   }
 
@@ -75,25 +74,39 @@ export default class SignUp extends React.Component {
       updateUser.updateProfile({displayName: userData.displayName});
       this.saveUserToFirestore(userData, updateUser.uid);
     })
-    .catch(error => console.log('error registering', error));
+    .catch(error =>  {if (error.code === "auth/invalid-email") {
+      this.setState({emailError: "Please enter a valid email"});
+    } else if (error.code === "auth/email-already-in-use") {
+      this.setState({emailError: "The email is already in our system!"});
+    } else if (error.code === "auth/weak-password") {
+      this.setState({passwordError: "Password needs to have 6 characters"})
+    }
+    console.log(error);});
   }
 
+//React Native doesn't have a proper Form that can check all inputs at the same time
+//This is why it checks every textinput separately. So if you were to leave Name and email empty, it will only show the very first error it finds i.e. Name required;
   validate(){
-    
-    if (this.state.name.trim() === '') {
-      this.setState({ nameError: 'Name required..'});
-    } else if (this.state.email.trim() === '') {
-      this.setState({ emailError: 'Email required..'});
-    } else if (this.state.password.trim() === '') {
-      this.setState({ passwordError: 'Password required..'});
-    } else if (this.state.passwordCheck.trim() === '' || this.state.passwordCheck.trim() !== this.state.password.trim()) {
-      this.setState({ passwordCheckError: "Passwords don't match!"});
-    } else if (this.state.phoneNumber.trim() === '') {
-      this.setState({ phoneNumberError: 'Email required..'});
-    } else if (this.state.userType.trim() === '') {
-      this.setState({ userType: 'Are you a musician or a shooter?'});
-    } else if (this.state.userType === 'photographer' && this.state.camera.trim() === '') {
-      this.setState({ userType: 'Camera details required..'});
+
+    switch ('') {
+      case this.state.name.trim():
+        this.setState({ nameError: 'Name required..'});
+        break;
+      case this.state.email.trim():
+        this.setState({ emailError: 'Email required..'});
+        break;
+      case this.state.password.trim():
+        this.setState({ passwordError: 'Password required..'});
+        break;
+      case this.state.passwordCheck.trim():
+        this.setState({ passwordCheckError: 'Please re-enter password'});
+        break;
+      case this.state.phoneNumber.trim():
+        this.setState({ phoneNumberError: 'Phone number required..'});
+        break;
+      case this.state.userType.trim():
+        this.setState({ userTypeError: 'Please select a user..'});
+        break;
     }
   }
 
@@ -113,7 +126,7 @@ export default class SignUp extends React.Component {
       },
     ];
 
-    const validations = this.state.name.trim() === "" || this.state.email.trim() === "" || this.state.password.trim() === "" || this.state.passwordCheck.trim() === "" || this.state.phoneNumber.trim() === "" || this.state.userType.trim() === "";
+    const validations = this.state.name.trim() === "" || this.state.email.trim() === "" || this.state.password.trim() === "" || this.state.passwordCheck.trim() === "" || this.state.phoneNumber.trim() === "" || this.state.userType.trim() === "" || (this.state.password !== this.state.passwordCheck);
 
     return(
       <ScrollView style={styles.inputContainer}>
@@ -142,6 +155,7 @@ export default class SignUp extends React.Component {
           value={this.state.email} />
 
         {!this.state.email && (<Text style={{color: "red"}}>{this.state.emailError}</Text>)}
+        {this.state.emailError && (<Text style={{color: "red"}}>{this.state.emailError}</Text>)}
 
         <Text>Password:</Text>
 
@@ -153,7 +167,7 @@ export default class SignUp extends React.Component {
           secureTextEntry={true}
           value={this.state.password}/>
 
-          {!this.state.password && (<Text style={{color: "red"}}>{this.state.passwordError}</Text>)}
+        {!this.state.password && (<Text style={{color: "red"}}>{this.state.passwordError}</Text>)}
 
         <Text>Retype Password:</Text>
 
@@ -164,9 +178,12 @@ export default class SignUp extends React.Component {
           }}
           secureTextEntry={true}
           value={this.state.passwordCheck}/>
-          {this.state.passwordCheckError && (<Text style={{color: "red"}}>{this.state.passwordCheckError}</Text>)}
 
         {!this.state.passwordCheck && (<Text style={{color: "red"}}>{this.state.passwordCheckError}</Text>)}
+
+        {this.state.passwordCheck.length >= 1 && this.state.password !== this.state.passwordCheck ? (<Text style={{color: "red"}}>Passwords don't match</Text>) : (<Text></Text>)}
+
+
 
         <Text>Phone number:</Text>
 
@@ -178,13 +195,15 @@ export default class SignUp extends React.Component {
           keyboardType={'number-pad'}
           value={this.state.phoneNumber}/>
 
-          {!this.state.phoneNumber && (<Text style={{color: "red"}}>{this.state.phoneNumberError}</Text>)}
+        {!this.state.phoneNumber && (<Text style={{color: "red"}}>{this.state.phoneNumberError}</Text>)}
 
         <Text>I am </Text>
 
         <RadioButtons
           options={options}
           userType={this.changeUserType}/>
+
+        {!this.state.userType && (<Text style={{color: "red"}}>{this.state.userTypeError}</Text>)}
 
         {this.state.userType === 'photographer' ? (
           <ScrollView style={styles.inputContainer}>
@@ -207,17 +226,16 @@ export default class SignUp extends React.Component {
           onPress={() => {
             if (validations) {
               this.validate();
-              //this.setState({ nameError: 'Input required...'});
             } else {
-              this.setState({nameError: null})
               this.registerUser();
             }
 
           }}
           style={{backgroundColor: 'black'}}>
 
-        <Text
-        style={{color: '#fff'}}>Sign Up</Text>
+          <Text
+            style={{color: '#fff'}}>Sign Up</Text>
+
         </TouchableHighlight>
 
       </ScrollView>
