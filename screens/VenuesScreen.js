@@ -1,14 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 
-class HomeScreen extends React.Component {
+class VenuesScreen extends React.Component {
   static navigationOptions = {
-    title: 'Postcard',
+    title: 'Postcard - Venues',
   };
   render() {
     const {navigate} = this.props.navigation;
     return (
       <View>
+      <Text>Venues</Text>
+      <Text>Hello Artist</Text>
       <Button
         title="Profile"
         onPress={() => navigate('Profile')}
@@ -22,4 +24,4 @@ class HomeScreen extends React.Component {
   }
 }
 
-export default HomeScreen;
+export default VenuesScreen;
