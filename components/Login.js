@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TextInput, StyleSheet, TouchableHighlight} from 'react-native';
+import {View, Text, TextInput, StyleSheet, Button} from 'react-native';
 import {f, auth, firestore} from '../config/config.js';
 
 export default class Login extends React.Component {
@@ -14,7 +14,7 @@ export default class Login extends React.Component {
   render() {
     return (
       <View>
-        <Text>Test to Login from Login.js</Text>
+        <Text>Log in to Postcard</Text>
 
         <Text>Email:</Text>
         <TextInput
@@ -27,12 +27,10 @@ export default class Login extends React.Component {
           secureTextEntry={true}
           value={this.state.password} />
 
-        <TouchableHighlight
+        <Button
+          title="Login"
           onPress={() => this.props.loginUser(this.state.email, this.state.password)}
-          style={{backgroundColor: 'red'}}>
-        <Text>Login</Text>
-
-        </TouchableHighlight>
+          style={{backgroundColor: 'red'}} />
 
       </View>
     )
