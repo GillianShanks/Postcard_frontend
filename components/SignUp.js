@@ -223,7 +223,6 @@ export default class SignUp extends React.Component {
           <ScrollView></ScrollView>
         )}
 
-
         <TouchableHighlight
           onPress={() => {
             if (validations) {
@@ -235,9 +234,8 @@ export default class SignUp extends React.Component {
           }}
           style={{backgroundColor: 'black'}}>
 
-          <Text
-            style={{color: '#fff'}}>Sign Up</Text>
-
+        <Text
+        style={{color: '#fff', width: 100}}>Sign Up</Text>
         </TouchableHighlight>
 
       </ScrollView>
@@ -260,5 +258,22 @@ const styles = StyleSheet.create({
     fontSize: 14,
     height: 35,
     borderWidth: 1
+  },
+  addButton: {
+    width: 100,
+    backgroundColor: '#f542da',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  addButtonText: {
+    color: '#171717',
+    fontSize: 18,
+    fontWeight: '700'
+  },
+  button: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 });

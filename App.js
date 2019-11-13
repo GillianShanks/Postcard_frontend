@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, TextInput, View, FlatList, TouchableHighlight } from 'react-native';
+import { Platform, StyleSheet, Text, TextInput, View, FlatList, TouchableHighlight} from 'react-native';
 import {f, auth, firestore} from './config/config.js';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
@@ -23,7 +23,7 @@ class App extends React.Component {
       user: null,
       venues: []
     }
-
+    this.updateAppApp = this.updateAppApp.bind(this);
     this.fetchUserInfo = this.fetchUserInfo.bind(this);
   }
 
@@ -113,6 +113,10 @@ class App extends React.Component {
   }
 
 
+  updateAppApp(){
+    this.setState(this.state);
+  }
+
   render() {
     const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View></View>;
 
@@ -129,7 +133,7 @@ class App extends React.Component {
     })
 
     const AccessNavigator = createStackNavigator({
-      Access: {screen: Access},
+      Access: {screen: props => <Access {...props} screenProps={this.updateAppApp} />},
       SignUp: {screen: SignUp},
     })
 
