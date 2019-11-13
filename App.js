@@ -123,7 +123,7 @@ class App extends React.Component {
       {statusbar}
 
       {!this.state.loggedIn ? (
-      <View>
+      <View style={styles.main}>
 
       <AccessContainer />
 
