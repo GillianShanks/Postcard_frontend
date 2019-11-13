@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, TextInput, View, FlatList, TouchableHighlight } from 'react-native';
+import { Platform, StyleSheet, Text, TextInput, View, FlatList, TouchableHighlight} from 'react-native';
 import {f, auth, firestore} from './config/config.js';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
