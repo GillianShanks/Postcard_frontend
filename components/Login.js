@@ -14,9 +14,19 @@ export default class Login extends React.Component {
       email: '',
       password: ''
     }
+    this.login = this.login.bind(this);
+  }
+
+  login(){
+    this.props.loginUser(this.state.email, this.state.password);
+    this.props.updateApp();
+    this.props.updateAppApp();
   }
 
   render() {
+    if (!this.props) {
+      return 'Loading ...'
+    }
     return (
       <View style={styles.inputContainer}>
         <Text>Log in to Postcard</Text>
@@ -35,7 +45,7 @@ export default class Login extends React.Component {
           value={this.state.password} />
           <View style={styles.button}>
           <TouchableHighlight
-            onPress={() => this.props.loginUser(this.state.email, this.state.password)}
+            onPress={() => this.login()}
             style={{backgroundColor: 'orange', width: '25%'}}>
 
           <Text

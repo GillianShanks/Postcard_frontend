@@ -22,7 +22,7 @@ class App extends React.Component {
       userInfo: null,
       user: null
     }
-
+    this.updateAppApp = this.updateAppApp.bind(this);
     this.fetchUserInfo = this.fetchUserInfo.bind(this);
   }
 
@@ -102,6 +102,10 @@ class App extends React.Component {
     })
   }
 
+  updateAppApp(){
+    this.setState(this.state);
+  }
+
   render() {
     const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View></View>;
 
@@ -118,7 +122,7 @@ class App extends React.Component {
     })
 
     const AccessNavigator = createStackNavigator({
-      Access: {screen: Access},
+      Access: {screen: props => <Access {...props} screenProps={this.updateAppApp} />},
       SignUp: {screen: SignUp},
     })
 
@@ -141,10 +145,10 @@ class App extends React.Component {
           )
           :
           (
-            <View>
+            <View style={styles.main}>
               {this.state.loggedIn && this.state.userInfo !== null ?
                 (
-                  <View>
+                  <View style={styles.main}>
                     {this.state.userInfo.userType === "artist" ?
                       (
                         <View style={styles.main}>
