@@ -17,11 +17,11 @@ class Access extends React.Component {
 
   loginUser = async(email, password) => {
     if (email !== '' && password !== '') {
-      //
       try {
         let user = await auth.signInWithEmailAndPassword(email, password)
-      } catch (error) {
-        console.log('error logging in', error);
+      }
+      catch (error) {
+        alert(error.message);
       }
     } else {
       //If they are empty
@@ -29,9 +29,6 @@ class Access extends React.Component {
     }
   }
 
-  // updateApp(){
-  //   this.setState(this.state);
-  // }
 
   render() {
     if (!this.props.screenProps) {
