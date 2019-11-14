@@ -131,7 +131,7 @@ export default class SignUp extends React.Component {
     return(
       <ScrollView style={styles.inputContainer}>
 
-        <Text>Enter your details here:</Text>
+        <Text style={styles.basicText}>Enter your details here:</Text>
         <Text>Name:</Text>
 
         <TextInput
@@ -144,7 +144,7 @@ export default class SignUp extends React.Component {
         {!this.state.name && (<Text style={{color: "red"}}>{this.state.nameError}</Text>)}
 
 
-        <Text>Email:</Text>
+        <Text style={styles.basicText}>Email:</Text>
 
         <TextInput
           style={styles.input}
@@ -157,7 +157,7 @@ export default class SignUp extends React.Component {
         {!this.state.email && (<Text style={{color: "red"}}>{this.state.emailError}</Text>)}
         {this.state.emailError && (<Text style={{color: "red"}}>{this.state.emailError}</Text>)}
 
-        <Text>Password:</Text>
+        <Text style={styles.basicText}>Password:</Text>
 
         <TextInput
           style={styles.input}
@@ -169,7 +169,7 @@ export default class SignUp extends React.Component {
 
         {!this.state.password && (<Text style={{color: "red"}}>{this.state.passwordError}</Text>)}
 
-        <Text>Retype Password:</Text>
+        <Text style={styles.basicText}>Retype Password:</Text>
 
         <TextInput
           style={styles.input}
@@ -185,7 +185,7 @@ export default class SignUp extends React.Component {
 
 
 
-        <Text>Phone number:</Text>
+        <Text style={styles.basicText}>Phone number:</Text>
 
         <TextInput
           style={styles.input}
@@ -197,7 +197,7 @@ export default class SignUp extends React.Component {
 
         {!this.state.phoneNumber && (<Text style={{color: "red"}}>{this.state.phoneNumberError}</Text>)}
 
-        <Text>I am </Text>
+        <Text style={styles.basicText}>I am </Text>
 
         <RadioButtons
           options={options}
@@ -207,7 +207,7 @@ export default class SignUp extends React.Component {
 
         {this.state.userType === 'photographer' ? (
           <ScrollView style={styles.inputContainer}>
-            <Text> Which camera do you have?</Text>
+            <Text style={styles.basicText}> Which camera do you have?</Text>
 
             <TextInput
             style={styles.input}
@@ -235,7 +235,7 @@ export default class SignUp extends React.Component {
           style={{backgroundColor: 'black'}}>
 
         <Text
-        style={{color: '#fff', width: 100}}>Sign Up</Text>
+        style={{color: '#fff', width: 100}}>SIGN UP</Text>
         </TouchableHighlight>
 
       </ScrollView>
@@ -250,7 +250,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     shadowOffset: {width: 0, height: 3},
     shadowColor: '#171717',
-    shadowOpacity: 0.1
+    shadowOpacity: 0.1,
+    backgroundColor: '#0b1424',
+    padding: 50,
   },
   input: {
     backgroundColor: 'lavender',
@@ -275,5 +277,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  basicText: {
+    color: '#e8effa',
+    padding: 10,
   }
 });

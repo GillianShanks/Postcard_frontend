@@ -28,27 +28,27 @@ export default class Login extends React.Component {
     }
     return (
       <View style={styles.inputContainer}>
-        <Text>Log in to Postcard</Text>
 
-        <Text>Email:</Text>
+        <Text style={styles.basicText}>Email: </Text>
         <TextInput
           style={styles.input}
           onChangeText={(text) => this.setState({email: text})}
           value={this.state.email} />
 
-        <Text>Password:</Text>
+        <Text style={styles.basicText}>Password:</Text>
         <TextInput
           style={styles.input}
           onChangeText={(text) => this.setState({password: text})}
           secureTextEntry={true}
           value={this.state.password} />
+
           <View style={styles.button}>
           <TouchableHighlight
             onPress={() => this.login()}
             style={{backgroundColor: 'orange', width: '25%'}}>
 
           <Text
-            style={{color: '#fff', textAlign: 'center'}}>
+            style={styles.loginButton}>
             LOG IN
           </Text>
 
@@ -65,17 +65,32 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 10,
   },
   inputContainer: {
    flexDirection: 'column',
    shadowOffset: {width: 0, height: 3},
    shadowColor: '#171717',
-   shadowOpacity: 0.1
+   shadowOpacity: 0.1,
+   width: '100%',
+   padding: 50,
  },
  input: {
    backgroundColor: 'lavender',
    fontSize: 14,
    height: 35,
    borderWidth: 1
+ },
+ basicText: {
+   color: '#e8effa',
+   padding: 10,
+ },
+ loginButton: {
+   color: '#fff',
+   textAlign: 'center',
+   borderRadius: 4,
+   borderWidth: 1,
+   borderColor: 'orange',
+   padding: 5,
  }
 });
