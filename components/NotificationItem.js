@@ -1,18 +1,20 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
-export default class VenueItem extends React.Component {
+export default class NotificationItem extends React.Component {
   constructor (props) {
     super(props);
   }
 
   render () {
-    const venueItem = this.props.venueItem;
+    const notif = this.props.notificationItem;
 
     return (
       <View style={styles.container}>
-        <Text>Venue: {'Wonderful Place' || venueItem.name}</Text>
-        <Text> Contact: { venueItem.email }</Text>
+        <Text>Venue: {notif.venue}</Text>
+        <Text>Date: {notif.date}</Text>
+        <Text>Customer: {notif.customer}</Text>
+        <Text>Type of act: {notif.type}</Text>
       </View>
     )
   }
