@@ -171,7 +171,7 @@ class App extends React.Component {
     },{
       defaultNavigationOptions: {
         headerRight:(
-      <Text style={{color:'white', fontSize: 20}}><Image source={require('./assets/PostcardLogo.png')} style={{ width: 100, height: 50 }} />Postcard</Text> ),
+          <Text style={{color:'white', fontSize: 20}}><Image source={require('./assets/PostcardLogo.png')} style={{ width: 100, height: 50 }} />Postcard</Text> ),
         headerStyle: {
           backgroundColor: 'black',
         },
