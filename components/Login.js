@@ -19,8 +19,7 @@ export default class Login extends React.Component {
 
   login(){
     this.props.loginUser(this.state.email, this.state.password);
-    this.props.updateApp();
-    this.props.updateAppApp();
+    this.props.updateAppApp(true);
   }
 
   render() {
