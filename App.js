@@ -103,89 +103,112 @@ class App extends React.Component {
     //this.setState(this.state);
     const user = auth.currentUser
     if (user) {
-    if (value) {
-      this.setState({loggedIn: value, user: user})
-      this.fetchUserInfo();
-      this.fetchVenueInfo();
-    }} else {
-      this.setState({loggedIn: false, user: null, userInfo: null, venues: []});
+      if (value) {
+        this.setState({loggedIn: value, user: user})
+        this.fetchUserInfo();
+        this.fetchVenueInfo();
+      }} else {
+        this.setState({loggedIn: false, user: null, userInfo: null, venues: []});
+      }
     }
-  }
 
-  render() {
-    const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View></View>;
+    render() {
+      const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View></View>;
 
-    const config = {defaultNavigationOptions: {
-     headerStyle: {
-       backgroundColor: 'black',
-     }
-   }};
+      //sets up the specific tab icon for each screen in the bottom tab bar
+      const getTabBarIcon = (navigation, focused, tintColor) => {
+        const { routeName } = navigation.state;
+        let IconComponent = Ionicons;
+        let iconName;
+        if (routeName === 'Venue') {
+          iconName = `ios-business`;
+        } else if (routeName === 'Gigs') {
+          iconName = `ios-musical-notes`;
+        } else if (routeName === 'Profile') {
+          iconName = `ios-person`;
+        } else if (routeName === 'Job List') {
+          iconName = `ios-list`;
+        } else if (routeName === 'Notifications') {
+          iconName = `ios-reverse-camera`;
+        } else if (routeName === 'Log In') {
+          iconName = `ios-log-in`;
+        } else if (routeName === 'Sign Up') {
+          iconName = `ios-person-add`;
+        }
+        // You can return any component that you like here!
+        return <IconComponent name={iconName} size={25} color={tintColor} />;
+      };
 
-    const getTabBarIcon = (navigation, focused, tintColor) => {
-      const { routeName } = navigation.state;
-      let IconComponent = Ionicons;
-      let iconName;
-      if (routeName === 'Venue') {
-        iconName = `ios-business`;
-      } else if (routeName === 'Gigs') {
-        iconName = `ios-musical-notes`;
-      } else if (routeName === 'Profile') {
-        iconName = `ios-person`;
-      } else if (routeName === 'Job List') {
-        iconName = `ios-list`;
-      } else if (routeName === 'Notifications') {
-        iconName = `ios-reverse-camera`;
+      // These are all of the screen stacks
+      const config = {
+        defaultNavigationOptions: {
+          headerRight: (
+            <Text style={{color:'white', fontSize: 20}}>
+            <Image source={require('./assets/PostcardLogo.png')} style={{ width: 100, height: 50 }} />
+            Postcard
+            </Text>
+          ),
+          headerStyle: {
+            backgroundColor: 'black',
+          },
+          headerTintColor: 'orange',
+        }
       }
 
-      // You can return any component that you like here!
-      return <IconComponent name={iconName} size={25} color={tintColor} />;
-    };
-
-    const VenuesStack = createStackNavigator({
-      Venues: {screen: props => <VenuesScreen {...props} screenProps={[this.state.userInfo, this.state.venues]} />},
-    }, config)
-    VenuesStack.path = '';
-
-    const GigsStack= createStackNavigator({
-      Gigs: {screen: props => <GigsScreen {...props} screenProps={this.state.userInfo} />},
-    }, config)
-    GigsStack.path = '';
-
-    const ProfileStack = createStackNavigator({
-      Profile: {screen: props => <ProfileScreen {...props} screenProps={ [this.state.userInfo]} />},
-    }, config)
-    ProfileStack.path = '';
-
-    const NotificationsStack = createStackNavigator({
-      Notifications: {screen: props => <NotificationsScreen {...props} />},
-    }, config)
-
-    const JobListStack = createStackNavigator({
-      JobList: {screen: props => <JobListScreen  {...props} />},
-    }, config)
-
-
-    const AccessNavigator = createStackNavigator({
-      Access: {screen: props => <Access {...props} screenProps={this.updateAppApp} />},
-      SignUp: {screen: props => <SignUp {...props} screenProps={this.updateAppApp} />},
-    },{
-      defaultNavigationOptions: {
-        headerRight:(
-          <Text style={{color:'white', fontSize: 20}}><Image source={require('./assets/PostcardLogo.png')} style={{ width: 100, height: 50 }} />Postcard</Text> ),
-        headerStyle: {
-          backgroundColor: 'black',
+      const VenuesStack = createStackNavigator(
+        {
+          Venues: {screen: props => <VenuesScreen {...props} screenProps={[this.state.userInfo, this.state.venues]} />},
         },
-        headerTintColor: 'orange',
-      }
-    })
+        config
+      )
+      VenuesStack.path = '';
 
-    const ArtistBottomBar = createBottomTabNavigator(
-      {
-        Venue: VenuesStack,
-        Gigs: GigsStack,
-        Profile: ProfileStack
-      },
-      {
+      const GigsStack= createStackNavigator(
+        {
+          Gigs: {screen: props => <GigsScreen {...props} screenProps={this.state.userInfo} />},
+        }, config
+      )
+      GigsStack.path = '';
+
+      const ProfileStack = createStackNavigator(
+        {
+          Profile: {screen: props => <ProfileScreen {...props} screenProps={ [this.state.userInfo]} />},
+        }, config
+      )
+      ProfileStack.path = '';
+
+      const NotificationsStack = createStackNavigator(
+        {
+          Notifications: {screen: props => <NotificationsScreen {...props} />},
+        }, config
+      )
+      NotificationsStack.path = '';
+
+      const JobListStack = createStackNavigator(
+        {
+          JobList: {screen: props => <JobListScreen  {...props} />},
+        }, config
+      )
+      JobListStack.path = '';
+
+      const LoginStack = createStackNavigator(
+        {
+          Access: {screen: props => <Access {...props} screenProps={this.updateAppApp} />},
+        }, config
+      )
+      LoginStack.path = '';
+
+      const SignupStack = createStackNavigator(
+        {
+          SignUp: {screen: props => <SignUp {...props} screenProps={this.updateAppApp} />},
+        }, config
+      )
+      SignupStack.path = '';
+
+
+      // These are the app containers for the Authorisation and then the two
+
+      const barConfig = {
         defaultNavigationOptions: ({ navigation }) => ({
           tabBarIcon: ({ focused, tintColor }) =>
           getTabBarIcon(navigation, focused, tintColor),
@@ -197,80 +220,87 @@ class App extends React.Component {
           activeBackgroundColor: '#323c4d'
         },
       }
-    );
-    const PhotographerBottomBar = createBottomTabNavigator(
-      {
-        Notifications: NotificationsStack,
-        'Job List': JobListStack,
-        Profile: ProfileStack
-      },
-      {
-        defaultNavigationOptions: ({ navigation }) => ({
-          tabBarIcon: ({ focused, tintColor }) =>
-          getTabBarIcon(navigation, focused, tintColor),
-        }),
-        tabBarOptions: {
-          activeTintColor: 'orange',
-          inactiveTintColor: 'gray',
-          inactiveBackgroundColor: 'black',
-          activeBackgroundColor: '#323c4d'
+
+      const AccessBottomBar = createBottomTabNavigator(
+        {
+          'Log In': LoginStack,
+          'Sign Up': SignupStack
         },
-      }
-    );
+        barConfig
+      );
 
-    const ArtistContainer = createAppContainer(ArtistBottomBar);
-    const PhotographerContainer = createAppContainer(PhotographerBottomBar);
+      const ArtistBottomBar = createBottomTabNavigator(
+        {
+          Venue: VenuesStack,
+          Gigs: GigsStack,
+          Profile: ProfileStack
+        },
+        barConfig
+      );
 
-    const AccessContainer = createAppContainer(AccessNavigator);
+      const PhotographerBottomBar = createBottomTabNavigator(
+        {
+          Notifications: NotificationsStack,
+          'Job List': JobListStack,
+          Profile: ProfileStack
+        },
+        barConfig
+      );
+
+      const AccessContainer = createAppContainer(AccessBottomBar);
+
+      const ArtistContainer = createAppContainer(ArtistBottomBar);
+      const PhotographerContainer = createAppContainer(PhotographerBottomBar);
 
 
 
-    return (
-      <View style={styles.container}>
+
+      return (
+        <View style={styles.container}>
         {statusbar}
 
         {!this.state.loggedIn ?
           (
             <View style={styles.main}>
 
-              <AccessContainer />
+            <AccessContainer />
 
             </View>
           )
           :
           (
             <View style={styles.main}>
-              {this.state.loggedIn && this.state.userInfo !== null ?
+            {this.state.loggedIn && this.state.userInfo !== null ?
+              (
+                <View style={styles.main}>
+                {this.state.userInfo.userType === "artist" ?
                 (
                   <View style={styles.main}>
-                    {this.state.userInfo.userType === "artist" ?
-                      (
-                        <View style={styles.main}>
 
-                          <ArtistContainer />
-                        </View>
-                      )
-                      :
-                      (
-                        <View style={styles.main}>
-
-                          <PhotographerContainer />
-
-                        </View>
-                      )
-                    }
+                  <ArtistContainer />
                   </View>
                 )
                 :
                 (
-                  <View>
-                    <Text>Logging in...</Text>
+                  <View style={styles.main}>
+
+                  <PhotographerContainer />
+
                   </View>
                 )
               }
-            </View>
-          )
-        }
+              </View>
+            )
+            :
+            (
+              <View>
+              <Text>Logging in...</Text>
+              </View>
+            )
+          }
+          </View>
+        )
+      }
 
       </View>
     )
