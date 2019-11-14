@@ -37,7 +37,7 @@ class ProfileScreen extends React.Component {
         onPress={() => {
           auth.signOut()
           .catch((error) => {
-            console.log('Error:', error);
+            console.log('Error when signing out', error);
           });
         }}
         style={styles.logoutButton}>
