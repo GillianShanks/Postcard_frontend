@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, TextInput, View, FlatList, TouchableHighlight} from 'react-native';
+import { Platform, StyleSheet, Text, TextInput, View, FlatList, TouchableHighlight, Header, Image} from 'react-native';
 import {f, auth, firestore} from './config/config.js';
 import SignUp from './components/SignUp';
 import Access from './components/Access';
@@ -167,6 +167,14 @@ class App extends React.Component {
     const AccessNavigator = createStackNavigator({
       Access: {screen: props => <Access {...props} screenProps={this.updateAppApp} />},
       SignUp: {screen: props => <SignUp {...props} screenProps={this.updateAppApp} />},
+    },{
+      defaultNavigationOptions: {
+        headerTitle:(
+      <Text style={{color:'white', fontSize: 20, justifyContent: 'flex-end', left: 218, position: 'fixed'}}><Image source={require('./assets/PostcardLogo.png')} style={{ width: 100, height: 50 }} />Postcard</Text> ),
+        headerStyle: {
+          backgroundColor: 'black',
+        }
+      }
     })
 
     const ArtistBottomBar = createBottomTabNavigator(
