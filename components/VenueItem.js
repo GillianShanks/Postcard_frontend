@@ -12,7 +12,7 @@ export default class VenueItem extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.basicText}>Venue: {'Wonderful Place' || venueItem.name}</Text>
-        <Text style={styles.basicText}> Contact: { venueItem.email }</Text>
+        <Text style={styles.basicText}>Contact: { venueItem.email }</Text>
       </View>
     )
   }

@@ -115,10 +115,11 @@ class App extends React.Component {
   render() {
     const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View></View>;
 
-    const {config} = Platform.select({
-      web: { headerMode: 'screen' },
-      default: {},
-    });
+    const config = {defaultNavigationOptions: {
+     headerStyle: {
+       backgroundColor: 'black',
+     }
+   }};
 
     const getTabBarIcon = (navigation, focused, tintColor) => {
       const { routeName } = navigation.state;
@@ -279,7 +280,7 @@ class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0b1424',
+    backgroundColor: 'orange',
     alignItems: 'center',
     justifyContent: 'center',
     color: '#e8effa',
