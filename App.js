@@ -1,13 +1,14 @@
 import React from 'react';
 import { Platform, StyleSheet, Text, TextInput, View, FlatList, TouchableHighlight} from 'react-native';
 import {f, auth, firestore} from './config/config.js';
-import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Access from './components/Access';
 //New Things
-import Content from './components/Content';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { Ionicons } from '@expo/vector-icons'; // 6.2.2
+
 import VenuesScreen from './screens/VenuesScreen';
 import GigsScreen from './screens/GigsScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
@@ -114,27 +115,101 @@ class App extends React.Component {
   render() {
     const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View></View>;
 
-    const ArtistNavigator = createStackNavigator({
-      Venues: {screen: props => <VenuesScreen {...props} screenProps={[this.state.userInfo, this.state.venues]} />},
-      Gigs: {screen: props => <GigsScreen {...props} screenProps={this.state.userInfo} />},
-      Profile: {screen: props => <ProfileScreen {...props} screenProps={ [this.state.userInfo]} />},
-    })
+    const {config} = Platform.select({
+      web: { headerMode: 'screen' },
+      default: {},
+    });
 
-    const PhotographerNavigator = createStackNavigator({
-      Notifications: {screen: props => <NotificationsScreen {...props} />},
-      JobList: {screen: props => <JobListScreen  {...props} />},
+    const getTabBarIcon = (navigation, focused, tintColor) => {
+      const { routeName } = navigation.state;
+      let IconComponent = Ionicons;
+      let iconName;
+      if (routeName === 'Venue') {
+        iconName = `ios-business`;
+      } else if (routeName === 'Gigs') {
+        iconName = `ios-musical-notes`;
+      } else if (routeName === 'Profile') {
+        iconName = `ios-person`;
+      } else if (routeName === 'JobList') {
+        iconName = `ios-list`;
+      } else if (routeName === 'Notifications') {
+        iconName = `ios-reverse-camera`;
+      }
+
+      // You can return any component that you like here!
+      return <IconComponent name={iconName} size={25} color={tintColor} />;
+    };
+
+    const VenuesStack = createStackNavigator({
+      Venues: {screen: props => <VenuesScreen {...props} screenProps={[this.state.userInfo, this.state.venues]} />},
+    }, config)
+    VenuesStack.path = '';
+
+    const GigsStack= createStackNavigator({
+      Gigs: {screen: props => <GigsScreen {...props} screenProps={this.state.userInfo} />},
+    }, config)
+    GigsStack.path = '';
+
+    const ProfileStack = createStackNavigator({
       Profile: {screen: props => <ProfileScreen {...props} screenProps={ [this.state.userInfo]} />},
-    })
+    }, config)
+    ProfileStack.path = '';
+
+    const NotificationsStack = createStackNavigator({
+      Notifications: {screen: props => <NotificationsScreen {...props} />},
+    }, config)
+
+    const JobListStack = createStackNavigator({
+      JobList: {screen: props => <JobListScreen  {...props} />},
+    }, config)
+
 
     const AccessNavigator = createStackNavigator({
       Access: {screen: props => <Access {...props} screenProps={this.updateAppApp} />},
       SignUp: {screen: props => <SignUp {...props} screenProps={this.updateAppApp} />},
     })
 
-    const ArtistContainer = createAppContainer(ArtistNavigator);
-    const PhotographerContainer = createAppContainer(PhotographerNavigator);
+    const ArtistBottomBar = createBottomTabNavigator(
+      {
+        Venue: VenuesStack,
+        Gigs: GigsStack,
+        Profile: ProfileStack
+      },
+      {
+        defaultNavigationOptions: ({ navigation }) => ({
+          tabBarIcon: ({ focused, tintColor }) =>
+          getTabBarIcon(navigation, focused, tintColor),
+        }),
+        tabBarOptions: {
+          activeTintColor: 'tomato',
+          inactiveTintColor: 'gray',
+        },
+      }
+    );
+    const PhotographerBottomBar = createBottomTabNavigator(
+      {
+        Notifications: NotificationsStack,
+        'Job List': JobListStack,
+        Profile: ProfileStack
+      },
+      {
+        defaultNavigationOptions: ({ navigation }) => ({
+          tabBarIcon: ({ focused, tintColor }) =>
+          getTabBarIcon(navigation, focused, tintColor),
+        }),
+        tabBarOptions: {
+          activeTintColor: 'tomato',
+          inactiveTintColor: 'gray',
+        },
+      }
+    );
+
+    const ArtistContainer = createAppContainer(ArtistBottomBar);
+    const PhotographerContainer = createAppContainer(PhotographerBottomBar);
 
     const AccessContainer = createAppContainer(AccessNavigator);
+
+
 
     return (
       <View style={styles.container}>
@@ -159,7 +234,6 @@ class App extends React.Component {
                         <View style={styles.main}>
 
                           <ArtistContainer />
-
                         </View>
                       )
                       :

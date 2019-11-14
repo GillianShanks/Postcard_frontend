@@ -11,34 +11,26 @@ class VenuesScreen extends React.Component {
     const {navigate} = this.props.navigation;
 
     return (
-      <View>
-      {this.props.screenProps[1][2] ? (
       <View style={styles.container}>
-      <Text>Venues</Text>
-
-      <FlatList
-      data={this.props.screenProps[1]}
-      keyExtractor={(item, index) => index.toString()}
-      renderItem={ ({item, index}) => {
-        return(
-          <VenueItem venueItem={item} />
-        )
-      }}
-      />
-
-      <Text>Venue: {this.props.screenProps[1][2].name}</Text>
-
-      <Button
-        title="Profile"
-        onPress={() => navigate('Profile')}
-      />
-      <Button
-        title="Gigs"
-        onPress={() => navigate('Gigs')}
-      />
-      </View>):(
-        <Text>Loading venues...</Text>
-      )}
+        {this.props.screenProps[1] ?
+          (
+            <View style={styles.container}>
+              <Text style={styles.title}>Venues</Text>
+              <FlatList
+                style={styles.list}
+                data={this.props.screenProps[1]}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={ ({item, index}) => {
+                  return(
+                    <VenueItem venueItem={item} />
+                  )
+                }}
+              />
+            </View>
+          ):(
+            <Text>Loading venues...</Text>
+          )
+        }
       </View>
     );
   }
@@ -48,6 +40,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    width: '100%'
+  },
+  title: {
+    alignItems: 'center',
+    fontSize: 20,
+    paddingBottom: 10,
+  },
+  list: {
+    width: '100%',
   }
 })
 
