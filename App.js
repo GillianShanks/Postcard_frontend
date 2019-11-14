@@ -170,11 +170,12 @@ class App extends React.Component {
       SignUp: {screen: props => <SignUp {...props} screenProps={this.updateAppApp} />},
     },{
       defaultNavigationOptions: {
-        headerTitle:(
-      <Text style={{color:'white', fontSize: 20, justifyContent: 'flex-end', left: '45%', position: 'relative'}}><Image source={require('./assets/PostcardLogo.png')} style={{ width: 100, height: 50 }} />Postcard</Text> ),
+        headerRight:(
+          <Text style={{color:'white', fontSize: 20}}><Image source={require('./assets/PostcardLogo.png')} style={{ width: 100, height: 50 }} />Postcard</Text> ),
         headerStyle: {
           backgroundColor: 'black',
-        }
+        },
+        headerTintColor: 'orange',
       }
     })
 
@@ -284,6 +285,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     color: '#e8effa',
+
   },
   statusbar: {
     backgroundColor: '#f542da',

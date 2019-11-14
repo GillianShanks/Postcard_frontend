@@ -40,13 +40,14 @@ class Access extends React.Component {
     const {navigate} = this.props.navigation;
 
     return (
-      <View>
-
+      <View style={styles.container}>
+      <Text style={styles.title}>Log In</Text>
       <Login
         textChangeEmail={email => this.setState({email})}
         textChangePassword={password => this.setState({password})}
         loginUser={this.loginUser}
         updateAppApp={this.props.screenProps} />
+
         <View style={styles.button}>
         <TouchableHighlight
           onPress={() => navigate('SignUp')}
@@ -66,6 +67,18 @@ class Access extends React.Component {
 
 //CSS section
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    width: '100%',
+    backgroundColor: '#0b1424',
+  },
+  title: {
+    alignItems: 'center',
+    fontSize: 20,
+    paddingBottom: 10,
+    color: '#e8effa',
+  },
   button: {
     alignItems: 'center',
     justifyContent: 'center',

@@ -18,7 +18,7 @@ render(){
         key={item.key}
         style={styles.buttonContainer}>
 
-        <Text>{item.text}</Text>
+        <Text style={styles.basicText}>{item.text}</Text>
         <TouchableOpacity
         style={styles.circle}
         onPress={() => {
@@ -60,4 +60,8 @@ const styles = StyleSheet.create({
       borderRadius: 7,
       backgroundColor: '#794F9B',
   },
+  basicText: {
+    color: '#e8effa',
+
+  }
 });
