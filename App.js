@@ -36,10 +36,10 @@ class App extends React.Component {
         this.fetchVenueInfo();
       } else if (user && user.emailVerified === false) {
         user.sendEmailVerification();
-        this.setState({user, loggedIn: false});
+        this.setState({loggedIn: false, user: null, userInfo: null, venues: []});
         alert('Please check your email and verify your email address.')
       } else {
-        this.setState({loggedIn: false, user: null, userInfo: null});
+        this.setState({loggedIn: false, user: null, userInfo: null, venues: []});
       }
     })
   }
@@ -99,23 +99,17 @@ class App extends React.Component {
     }
   }
 
-  loginUser = async(email, password) => {
-    if (email !== '' && password !== '') {
-      //
-      try {
-        let user = await auth.signInWithEmailAndPassword(email, password)
-      } catch (error) {
-        console.log('error logging in', error);
-      }
-    } else {
-      //If they are empty
-      alert('Missing email or password');
+  updateAppApp(value){
+    //this.setState(this.state);
+    const user = auth.currentUser
+    if (user) {
+    if (value) {
+      this.setState({loggedIn: value, user: user})
+      this.fetchUserInfo();
+      this.fetchVenueInfo();
+    }} else {
+      this.setState({loggedIn: false, user: null, userInfo: null, venues: []});
     }
-  }
-
-
-  updateAppApp(){
-    this.setState(this.state);
   }
 
   render() {
@@ -172,7 +166,7 @@ class App extends React.Component {
 
     const AccessNavigator = createStackNavigator({
       Access: {screen: props => <Access {...props} screenProps={this.updateAppApp} />},
-      SignUp: {screen: SignUp},
+      SignUp: {screen: props => <SignUp {...props} screenProps={this.updateAppApp} />},
     })
 
     const ArtistBottomBar = createBottomTabNavigator(
