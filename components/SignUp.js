@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TextInput, StyleSheet, TouchableHighlight, ScrollView } from 'react-native';
+import { Text, TextInput, StyleSheet, TouchableHighlight, ScrollView, View } from 'react-native';
 import {f, auth, firestore} from '../config/config.js';
 import RadioButtons from './RadioButtons.js';
 
@@ -120,17 +120,13 @@ export default class SignUp extends React.Component {
         key: 'photographer',
         text: 'a Photographer',
       },
-      {
-        key: 'venue',
-        text: 'a Venue',
-      },
     ];
 
     const validations = this.state.name.trim() === "" || this.state.email.trim() === "" || this.state.password.trim() === "" || this.state.passwordCheck.trim() === "" || this.state.phoneNumber.trim() === "" || this.state.userType.trim() === "" || (this.state.password.trim() !== this.state.passwordCheck.trim()) || (this.state.userType.trim() === "photographer" && this.state.camera.trim() === "");
 
     return(
       <ScrollView style={styles.inputContainer}>
-
+      <View style={styles.screenContainer}>
         <Text style={styles.basicText}>Enter your details here:</Text>
         <Text>Name:</Text>
 
@@ -220,7 +216,10 @@ export default class SignUp extends React.Component {
 
           </ScrollView>
         ) : (
-          <ScrollView></ScrollView>
+          //TODO: Select for type of artist. Solo, band, musical style etc
+          <ScrollView>
+            <Text style={styles.basicText}>I'm making music</Text>
+          </ScrollView>
         )}
 
         <TouchableHighlight
@@ -238,7 +237,9 @@ export default class SignUp extends React.Component {
         style={{color: '#e8effa', width: 100}}>SIGN UP</Text>
         </TouchableHighlight>
 
+      </View>
       </ScrollView>
+
     );
   }
 
@@ -246,12 +247,16 @@ export default class SignUp extends React.Component {
 
 //CSS section
 const styles = StyleSheet.create({
+  screenContainer: {
+    padding: 50,
+  },
   inputContainer: {
     flexDirection: 'column',
     shadowOffset: {width: 0, height: 3},
     shadowColor: '#171717',
     shadowOpacity: 0.1,
     backgroundColor: '#0b1424',
+
   },
   input: {
     backgroundColor: 'lavender',
@@ -279,6 +284,6 @@ const styles = StyleSheet.create({
   },
   basicText: {
     color: '#e8effa',
-    padding: 10,
+    paddingBottom: 5,
   }
 });

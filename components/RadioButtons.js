@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
       width: 14,
       height: 14,
       borderRadius: 7,
-      backgroundColor: '#794F9B',
+      backgroundColor: 'orange',
   },
   basicText: {
     color: '#e8effa',
