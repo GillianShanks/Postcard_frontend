@@ -11,7 +11,8 @@ class Access extends React.Component {
       email: '',
       password: ''
     }
-    this.updateApp = this.updateApp.bind(this);
+  //  this.updateApp = this.updateApp.bind(this);
+    this.loginUser = this.loginUser.bind(this);
   }
 
   loginUser = async(email, password) => {
@@ -28,9 +29,9 @@ class Access extends React.Component {
     }
   }
 
-  updateApp(){
-    this.setState(this.state);
-  }
+  // updateApp(){
+  //   this.setState(this.state);
+  // }
 
   render() {
     if (!this.props.screenProps) {
@@ -45,7 +46,6 @@ class Access extends React.Component {
         textChangeEmail={email => this.setState({email})}
         textChangePassword={password => this.setState({password})}
         loginUser={this.loginUser}
-        updateApp={this.updateApp}
         updateAppApp={this.props.screenProps} />
         <View style={styles.button}>
         <TouchableHighlight
