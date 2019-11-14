@@ -11,8 +11,8 @@ export default class VenueItem extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text>Venue: {'Wonderful Place' || venueItem.name}</Text>
-        <Text> Contact: { venueItem.email }</Text>
+        <Text style={styles.basicText}>Venue: {'Wonderful Place' || venueItem.name}</Text>
+        <Text style={styles.basicText}> Contact: { venueItem.email }</Text>
       </View>
     )
   }
@@ -27,4 +27,8 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: '#d6d7da',
   },
+  basicText: {
+    color: '#e8effa',
+
+  }
 })

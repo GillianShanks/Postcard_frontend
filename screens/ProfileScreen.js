@@ -17,28 +17,33 @@ class ProfileScreen extends React.Component {
     const {navigate} = this.props.navigation;
     return (
       <View style={styles.container}>
-      <Text>Your Postcard Profile Details:</Text>
+      <Text style={styles.title}>Your Profile</Text>
 
-      <Text>Name: {this.props.screenProps[0].displayName}</Text>
-      <Text>Email: {this.props.screenProps[0].email}</Text>
-      <Text>Phone number: {this.props.screenProps[0].phoneNumber}</Text>
-      <Text>You are a {this.props.screenProps[0].userType}</Text>
-      <Text>Camera: {this.props.screenProps[0].camera}</Text>
-
+      <View style={styles.info}>
+        <Text style={styles.basicText}>Name: {this.props.screenProps[0].displayName}</Text>
+        <Text style={styles.basicText}>Email: {this.props.screenProps[0].email}</Text>
+        <Text style={styles.basicText}>Phone number: {this.props.screenProps[0].phoneNumber}</Text>
+        <Text style={styles.basicText}>You are {this.props.screenProps[0].userType==='artist' ? 'an artist' : 'a photographer'}.</Text>
+        <View>
+          {
+            this.props.screenProps[0].userType==='artist' ?
+            (<Text> hello </Text>)
+            :
+            (<Text style={styles.basicText}>Camera: {this.props.screenProps[0].camera}</Text>)
+          }
+        </View>
+      </View>
       <TouchableHighlight
         onPress={() => {
           auth.signOut()
-          .then(() => {
-            console.log('Logged out...');
-          })
           .catch((error) => {
             console.log('Error:', error);
           });
         }}
-        style={{backgroundColor: 'black'}}>
+        style={styles.logoutButton}>
 
         <Text style={{color: '#fff'}}>
-          Log out.
+          Log Out
         </Text>
 
       </TouchableHighlight>
@@ -52,6 +57,31 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    width: '100%',
+    backgroundColor: '#0b1424',
+  },
+  title: {
+    alignItems: 'center',
+    fontSize: 20,
+    paddingBottom: 10,
+    color: '#e8effa',
+
+  },
+  info: {
+    width: '100%',
+    alignItems: 'stretch',
+    justifyContent: 'flex-start',
+    padding: 20,
+  },
+  logoutButton: {
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: 'red',
+    padding: 5,
+    backgroundColor: 'red',
+  },
+  basicText: {
+    color: '#e8effa',
   }
 })
 

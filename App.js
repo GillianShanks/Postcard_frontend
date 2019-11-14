@@ -136,7 +136,7 @@ class App extends React.Component {
         iconName = `ios-musical-notes`;
       } else if (routeName === 'Profile') {
         iconName = `ios-person`;
-      } else if (routeName === 'JobList') {
+      } else if (routeName === 'Job List') {
         iconName = `ios-list`;
       } else if (routeName === 'Notifications') {
         iconName = `ios-reverse-camera`;
@@ -187,8 +187,10 @@ class App extends React.Component {
           getTabBarIcon(navigation, focused, tintColor),
         }),
         tabBarOptions: {
-          activeTintColor: 'tomato',
+          activeTintColor: 'orange',
           inactiveTintColor: 'gray',
+          inactiveBackgroundColor: 'black',
+          activeBackgroundColor: '#323c4d'
         },
       }
     );
@@ -204,8 +206,10 @@ class App extends React.Component {
           getTabBarIcon(navigation, focused, tintColor),
         }),
         tabBarOptions: {
-          activeTintColor: 'tomato',
+          activeTintColor: 'orange',
           inactiveTintColor: 'gray',
+          inactiveBackgroundColor: 'black',
+          activeBackgroundColor: '#323c4d'
         },
       }
     );
@@ -273,9 +277,10 @@ class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#0b1424',
     alignItems: 'center',
     justifyContent: 'center',
+    color: '#e8effa',
   },
   statusbar: {
     backgroundColor: '#f542da',
@@ -283,7 +288,9 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
-    width: '100%'
+    width: '100%',
+    backgroundColor: '#0b1424',
+    color: '#e8effa',
   }
 });
 

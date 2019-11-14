@@ -10,7 +10,7 @@ class NotificationsScreen extends React.Component {
     const {navigate} = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text>Job List</Text>
+        <Text style={styles.title}>Job List</Text>
       </View>
     );
   }
@@ -20,7 +20,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-  }
+    backgroundColor: '#0b1424',
+
+  },
+  title: {
+    alignItems: 'center',
+    fontSize: 20,
+    paddingBottom: 10,
+    color: '#e8effa',
+
+  },
 })
 
 export default NotificationsScreen;
