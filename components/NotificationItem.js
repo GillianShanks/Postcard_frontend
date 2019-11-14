@@ -11,10 +11,10 @@ export default class NotificationItem extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text>Venue: {notif.venue}</Text>
-        <Text>Date: {notif.date}</Text>
-        <Text>Customer: {notif.customer}</Text>
-        <Text>Type of act: {notif.type}</Text>
+        <Text style={styles.basicText}>Venue: {notif.venue}</Text>
+        <Text style={styles.basicText}>Date: {notif.date}</Text>
+        <Text style={styles.basicText}>Customer: {notif.customer}</Text>
+        <Text style={styles.basicText}>Type of act: {notif.type}</Text>
       </View>
     )
   }
@@ -29,4 +29,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: '#d6d7da',
   },
+  basicText: {
+    color: '#e8effa',
+  }
 })

@@ -28,7 +28,7 @@ class VenuesScreen extends React.Component {
               />
             </View>
           ):(
-            <Text>Loading venues...</Text>
+            <Text style={styles.basicText}>Loading venues...</Text>
           )
         }
       </View>
@@ -40,15 +40,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    width: '100%'
+    width: '100%',
+    backgroundColor: '#0b1424',
+
   },
   title: {
     alignItems: 'center',
     fontSize: 20,
     paddingBottom: 10,
+    color: '#e8effa',
   },
   list: {
     width: '100%',
+  },
+  basicText: {
+    color: '#e8effa',
+    alignItems: 'center',
   }
 })
 
