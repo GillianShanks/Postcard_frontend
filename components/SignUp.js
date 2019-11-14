@@ -232,10 +232,10 @@ export default class SignUp extends React.Component {
             }
 
           }}
-          style={{backgroundColor: 'black'}}>
+          style={{backgroundColor: 'orange'}}>
 
         <Text
-        style={{color: '#fff', width: 100}}>SIGN UP</Text>
+        style={{color: '#e8effa', width: 100}}>SIGN UP</Text>
         </TouchableHighlight>
 
       </ScrollView>
@@ -252,7 +252,6 @@ const styles = StyleSheet.create({
     shadowColor: '#171717',
     shadowOpacity: 0.1,
     backgroundColor: '#0b1424',
-    padding: 50,
   },
   input: {
     backgroundColor: 'lavender',
