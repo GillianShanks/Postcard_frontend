@@ -217,9 +217,7 @@ export default class SignUp extends React.Component {
           </ScrollView>
         ) : (
           //TODO: Select for type of artist. Solo, band, musical style etc
-          <ScrollView>
-            <Text style={styles.basicText}>I'm making music</Text>
-          </ScrollView>
+          <ScrollView></ScrollView>
         )}
 
         <TouchableHighlight
