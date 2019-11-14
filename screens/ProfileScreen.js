@@ -27,7 +27,7 @@ class ProfileScreen extends React.Component {
         <View>
           {
             this.props.screenProps[0].userType==='artist' ?
-            (<Text> hello </Text>)
+            (<Text>  </Text>)
             :
             (<Text style={styles.basicText}>Camera: {this.props.screenProps[0].camera}</Text>)
           }

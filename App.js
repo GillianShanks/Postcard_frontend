@@ -283,8 +283,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'orange',
     alignItems: 'center',
-    justifyContent: 'center',
-    color: '#e8effa',
+    justifyContent: 'center'
 
   },
   statusbar: {
@@ -294,8 +293,7 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     width: '100%',
-    backgroundColor: '#0b1424',
-    color: '#e8effa',
+    backgroundColor: '#0b1424'
   }
 });
 
