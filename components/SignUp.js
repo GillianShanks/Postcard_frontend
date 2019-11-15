@@ -75,9 +75,9 @@ export default class SignUp extends React.Component {
       this.saveUserToFirestore(userData, updateUser.uid);
     })
     .catch(error =>  {if (error.code === "auth/invalid-email") {
-      this.setState({emailError: "Please enter a valid email"});
+      this.setState({emailValidationError: "Please enter a valid email"});
     } else if (error.code === "auth/email-already-in-use") {
-      this.setState({emailError: "The email is already in our system!"});
+      this.setState({emailValidationError: "The email is already in our system!"});
     } else if (error.code === "auth/weak-password") {
       this.setState({passwordError: "Password needs to have 6 characters"})
     }
@@ -152,7 +152,7 @@ export default class SignUp extends React.Component {
           placeholder="yourname@postcard.com" />
 
         {!this.state.email && (<Text style={{color: "red"}}>{this.state.emailError}</Text>)}
-        {this.state.emailError && (<Text style={{color: "red"}}>{this.state.emailError}</Text>)}
+        {this.state.emailValidationError && (<Text style={{color: "red"}}>{this.state.emailValidationError}</Text>)}
 
         <Text style={styles.basicText}>Password:</Text>
 
