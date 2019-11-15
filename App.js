@@ -143,10 +143,9 @@ class App extends React.Component {
       const config = {
         defaultNavigationOptions: {
           headerRight: (
-            <Text style={{color:'white', fontSize: 20}}>
-            <Image source={require('./assets/PostcardLogo.png')} style={{ width: 100, height: 50 }} />
-            Postcard
-            </Text>
+            <View style={styles.headerContent}>
+              <Image source={require('./assets/PostcardLogo.png')} style={{ width: 100, height: 50 }} />
+            </View>
           ),
           headerStyle: {
             backgroundColor: 'black',
@@ -324,6 +323,11 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     backgroundColor: '#0b1424'
+  },
+  headerContent: {
+    flex: 'row',
+    marginBottom: 20,
+    marginRight: 20,
   }
 });
 

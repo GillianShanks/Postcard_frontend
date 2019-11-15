@@ -11,10 +11,14 @@ export default class NotificationItem extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.basicText}>Venue: {notif.venue}</Text>
-        <Text style={styles.basicText}>Date: {notif.date}</Text>
-        <Text style={styles.basicText}>Customer: {notif.customer}</Text>
-        <Text style={styles.basicText}>Type of act: {notif.type}</Text>
+        <Text style={styles.basicText}>Venue</Text>
+        <Text style={styles.biggerText}>{notif.venue}</Text>
+        <Text style={styles.basicText}>Date</Text>
+        <Text style={styles.biggerText}>{notif.date}</Text>
+        <Text style={styles.basicText}>Customer</Text>
+        <Text style={styles.biggerText}>{notif.customer}</Text>
+        <Text style={styles.basicText}>Type of act</Text>
+        <Text style={styles.biggerText}>{notif.type}</Text>
       </View>
     )
   }
@@ -28,8 +32,16 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
+    marginBottom: 10
   },
   basicText: {
+    fontSize: 12,
+    textTransform: 'uppercase',
+    color: 'orange'
+  },
+  biggerText: {
     color: '#e8effa',
+    fontSize: 18,
+    marginBottom: 5,
   }
 })

@@ -26,9 +26,11 @@ const styles = StyleSheet.create({
   },
   title: {
     alignItems: 'center',
-    fontSize: 20,
+    fontSize: 26,
+    paddingTop: 10,
     paddingBottom: 10,
-    color: '#e8effa',
+    color: 'orange',
+    textTransform: 'uppercase'
   },
   basicText: {
     color: '#e8effa',

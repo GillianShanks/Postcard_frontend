@@ -41,26 +41,12 @@ class Access extends React.Component {
 
     return (
       <View style={styles.container}>
-      <Text style={styles.title}>Log In</Text>
-      <Login
-        textChangeEmail={email => this.setState({email})}
-        textChangePassword={password => this.setState({password})}
-        loginUser={this.loginUser}
-        updateAppApp={this.props.screenProps} />
-
-        <View style={styles.button}>
-        <TouchableHighlight
-          onPress={() => navigate('SignUp')}
-          style={{backgroundColor: 'orange', width: '25%'}}>
-
-        <Text
-          style={{color: '#fff', textAlign: 'center'}}>
-          SIGN UP
-        </Text>
-
-        </TouchableHighlight>
-        </View>
-
+        <Text style={styles.title}>Log In To Postcard</Text>
+        <Login
+          textChangeEmail={email => this.setState({email})}
+          textChangePassword={password => this.setState({password})}
+          loginUser={this.loginUser}
+          updateAppApp={this.props.screenProps} />
       </View>
     )};
 }
@@ -75,9 +61,11 @@ const styles = StyleSheet.create({
   },
   title: {
     alignItems: 'center',
-    fontSize: 20,
+    fontSize: 26,
+    paddingTop: 10,
     paddingBottom: 10,
-    color: '#e8effa',
+    color: 'orange',
+    textTransform: 'uppercase'
   },
   button: {
     alignItems: 'center',

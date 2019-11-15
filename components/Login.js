@@ -42,10 +42,10 @@ export default class Login extends React.Component {
           secureTextEntry={true}
           value={this.state.password} />
 
-          <View style={styles.button}>
+          <View>
           <TouchableHighlight
             onPress={() => this.login()}
-            style={{backgroundColor: 'orange', width: '25%'}}>
+            >
 
           <Text
             style={styles.loginButton}>
@@ -79,18 +79,22 @@ const styles = StyleSheet.create({
    backgroundColor: 'lavender',
    fontSize: 14,
    height: 35,
-   borderWidth: 1
+   borderWidth: 1,
+   paddingLeft: 5,
  },
  basicText: {
    color: '#e8effa',
    padding: 10,
  },
  loginButton: {
-   color: '#fff',
+   color: '#000',
    textAlign: 'center',
    borderRadius: 4,
    borderWidth: 1,
    borderColor: 'orange',
    padding: 5,
+   width: '100%',
+   backgroundColor: 'orange',
+   marginTop: 35,
  }
 });
