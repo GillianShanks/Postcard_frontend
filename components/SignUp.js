@@ -148,7 +148,8 @@ export default class SignUp extends React.Component {
             this.setState({email: emailInput});
           }}
           keyboardType={'email-address'}
-          value={this.state.email} />
+          value={this.state.email}
+          placeholder="yourname@postcard.com" />
 
         {!this.state.email && (<Text style={{color: "red"}}>{this.state.emailError}</Text>)}
         {this.state.emailError && (<Text style={{color: "red"}}>{this.state.emailError}</Text>)}
@@ -161,7 +162,8 @@ export default class SignUp extends React.Component {
             this.setState({password: passwordInput});
           }}
           secureTextEntry={true}
-          value={this.state.password}/>
+          value={this.state.password}
+          placeholder="Password"/>
 
         {!this.state.password && (<Text style={{color: "red"}}>{this.state.passwordError}</Text>)}
 
@@ -173,7 +175,8 @@ export default class SignUp extends React.Component {
             this.setState({passwordCheck: passwordInput});
           }}
           secureTextEntry={true}
-          value={this.state.passwordCheck}/>
+          value={this.state.passwordCheck}
+          placeholder="Retype Password"/>
 
         {!this.state.passwordCheck && (<Text style={{color: "red"}}>{this.state.passwordCheckError}</Text>)}
 
@@ -189,7 +192,8 @@ export default class SignUp extends React.Component {
             this.setState({phoneNumber: phoneInput});
           }}
           keyboardType={'number-pad'}
-          value={this.state.phoneNumber}/>
+          value={this.state.phoneNumber}
+          placeholder="0141 111 111"/>
 
         {!this.state.phoneNumber && (<Text style={{color: "red"}}>{this.state.phoneNumberError}</Text>)}
 
@@ -229,10 +233,9 @@ export default class SignUp extends React.Component {
             }
 
           }}
-          style={{backgroundColor: 'orange'}}>
+          >
 
-        <Text
-        style={{color: '#e8effa', width: 100}}>SIGN UP</Text>
+        <Text style={styles.button}>SIGN UP</Text>
         </TouchableHighlight>
 
       </View>
@@ -261,7 +264,8 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 14,
     height: 35,
-    borderWidth: 1
+    borderWidth: 1,
+    paddingLeft: 5,
   },
   addButton: {
     width: 100,
@@ -275,10 +279,13 @@ const styles = StyleSheet.create({
     fontWeight: '700'
   },
   button: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    color: '#000',
+    textAlign: 'center',
+    borderRadius: 4,
+    borderWidth: 1,
+    backgroundColor: 'orange',
+    borderColor: 'orange',
+    padding: 5,
   },
   basicText: {
     color: '#e8effa',

@@ -21,14 +21,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#0b1424',
-
   },
   title: {
     alignItems: 'center',
-    fontSize: 20,
+    fontSize: 26,
+    paddingTop: 10,
     paddingBottom: 10,
-    color: '#e8effa',
-
+    color: 'orange',
+    textTransform: 'uppercase'
   },
 })
 

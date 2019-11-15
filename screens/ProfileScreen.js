@@ -17,19 +17,26 @@ class ProfileScreen extends React.Component {
     const {navigate} = this.props.navigation;
     return (
       <View style={styles.container}>
-      <Text style={styles.title}>Your Profile</Text>
+      <Text style={styles.title}>PROFILE</Text>
 
       <View style={styles.info}>
-        <Text style={styles.basicText}>Name: {this.props.screenProps[0].displayName}</Text>
-        <Text style={styles.basicText}>Email: {this.props.screenProps[0].email}</Text>
-        <Text style={styles.basicText}>Phone number: {this.props.screenProps[0].phoneNumber}</Text>
-        <Text style={styles.basicText}>You are {this.props.screenProps[0].userType==='artist' ? 'an artist' : 'a photographer'}.</Text>
+        <Text style={styles.basicText}>Name</Text>
+        <Text style={styles.biggerText}>{this.props.screenProps[0].displayName}</Text>
+        <Text style={styles.basicText}>Email</Text>
+        <Text style={styles.biggerText}>{this.props.screenProps[0].email}</Text>
+        <Text style={styles.basicText}>Phone number</Text>
+        <Text style={styles.biggerText}>{this.props.screenProps[0].phoneNumber}</Text>
+        <Text style={styles.basicText}>User Type</Text>
+        <Text style={styles.biggerText}>{this.props.screenProps[0].userType==='artist' ? 'Artist' : 'Photographer'}</Text>
         <View>
           {
             this.props.screenProps[0].userType==='artist' ?
             (<Text>  </Text>)
             :
-            (<Text style={styles.basicText}>Camera: {this.props.screenProps[0].camera}</Text>)
+            (<View>
+              <Text style={styles.basicText}>Camera</Text>
+              <Text style={styles.biggerText}>{this.props.screenProps[0].camera}</Text>
+            </View>)
           }
         </View>
       </View>
@@ -62,10 +69,11 @@ const styles = StyleSheet.create({
   },
   title: {
     alignItems: 'center',
-    fontSize: 20,
+    fontSize: 26,
+    paddingTop: 10,
     paddingBottom: 10,
-    color: '#e8effa',
-
+    color: 'orange',
+    textTransform: 'uppercase'
   },
   info: {
     width: '100%',
@@ -76,12 +84,22 @@ const styles = StyleSheet.create({
   logoutButton: {
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: 'red',
+    borderColor: 'darkorange',
     padding: 5,
-    backgroundColor: 'red',
+    paddingLeft: 10,
+    paddingRight: 10,
+    backgroundColor: 'darkorange',
+    marginTop: 80,
   },
   basicText: {
+    fontSize: 12,
+    textTransform: 'uppercase',
+    color: 'orange'
+  },
+  biggerText: {
     color: '#e8effa',
+    fontSize: 24,
+    marginBottom: 5,
   }
 })
 

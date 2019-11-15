@@ -34,12 +34,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     backgroundColor: '#0b1424',
+    padding: 10
   },
   title: {
     alignItems: 'center',
-    fontSize: 20,
+    fontSize: 26,
+    paddingTop: 10,
     paddingBottom: 10,
-    color: '#e8effa',
+    color: 'orange',
+    textTransform: 'uppercase'
   },
   list: {
     width: '100%',
