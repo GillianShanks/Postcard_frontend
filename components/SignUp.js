@@ -258,7 +258,6 @@ const styles = StyleSheet.create({
     shadowColor: '#171717',
     shadowOpacity: 0.1,
     backgroundColor: '#0b1424',
-    alignItems: 'center',
   },
   input: {
     backgroundColor: 'lavender',
