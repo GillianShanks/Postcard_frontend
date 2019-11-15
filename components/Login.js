@@ -35,12 +35,13 @@ export default class Login extends React.Component {
           onChangeText={(text) => this.setState({email: text})}
           value={this.state.email} />
 
+
         <Text style={styles.basicText}>Password:</Text>
         <TextInput
           style={styles.input}
           onChangeText={(text) => this.setState({password: text})}
           secureTextEntry={true}
-          value={this.state.password} />
+          value={this.state.password} />      
 
           <View>
           <TouchableHighlight

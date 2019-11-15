@@ -70,37 +70,24 @@ class App extends React.Component {
       .get()
       .then((doc1) => {
         if (doc1.exists) {
-          this.setState({userInfo: doc1.data()})
-          console.log('Docu data first if', doc1.data());
+          this.setState({userInfo: doc1.data()});
         } else {
-          firestore.collection('venue').doc(currentUser.uid)
-          .get()
-          .then((doc2) => {
-            if(doc2.exists) {
-              this.setState({userInfo: doc2.data()})
-              console.log('Docu data second if', doc2.data());
-            }
-            else {
-              firestore.collection('photographer')
-              .doc(currentUser.uid)
-              .get()
-              .then((doc3) => {
-                if (doc3.exists) {
-                  this.setState({userInfo: doc3.data()})
-                  console.log('Docu data third if', doc3.data());
-                }
-              })
-            }
+            firestore.collection('photographer')
+            .doc(currentUser.uid)
+            .get()
+            .then((doc2) => {
+              if (doc2.exists) {
+                this.setState({userInfo: doc2.data()});
+              }
+            })
+          }
           })
-        }
-      })
-    } catch (error) {
+        } catch (error) {
       console.log('error fetching user info', error);
     }
   }
 
   updateAppApp(value){
-    //this.setState(this.state);
     const user = auth.currentUser
     if (user) {
       if (value) {
