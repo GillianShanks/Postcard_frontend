@@ -127,8 +127,8 @@ export default class SignUp extends React.Component {
     return(
       <ScrollView style={styles.inputContainer}>
       <View style={styles.screenContainer}>
-        <Text style={styles.basicText}>Enter your details here:</Text>
-        <Text>Name:</Text>
+        <Text style={styles.title}>Enter your details</Text>
+        <Text style={styles.basicText}>Name:</Text>
 
         <TextInput
           style={styles.input}
@@ -250,6 +250,7 @@ export default class SignUp extends React.Component {
 const styles = StyleSheet.create({
   screenContainer: {
     padding: 50,
+    paddingTop: 10
   },
   inputContainer: {
     flexDirection: 'column',
@@ -257,7 +258,7 @@ const styles = StyleSheet.create({
     shadowColor: '#171717',
     shadowOpacity: 0.1,
     backgroundColor: '#0b1424',
-
+    alignItems: 'center',
   },
   input: {
     backgroundColor: 'lavender',
@@ -290,5 +291,11 @@ const styles = StyleSheet.create({
   basicText: {
     color: '#e8effa',
     paddingBottom: 5,
+  },
+  title: {
+    fontSize: 26,
+    paddingBottom: 10,
+    color: 'orange',
+    textTransform: 'uppercase'
   }
 });

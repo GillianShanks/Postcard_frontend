@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontSize: 26,
     paddingTop: 10,
-    paddingBottom: 10,
     color: 'orange',
     textTransform: 'uppercase'
   },

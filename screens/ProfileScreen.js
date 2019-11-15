@@ -17,7 +17,7 @@ class ProfileScreen extends React.Component {
     const {navigate} = this.props.navigation;
     return (
       <View style={styles.container}>
-      <Text style={styles.title}>PROFILE</Text>
+        <Text style={styles.title}>PROFILE</Text>
 
       <View style={styles.info}>
         <Text style={styles.basicText}>Name</Text>
@@ -39,22 +39,22 @@ class ProfileScreen extends React.Component {
             </View>)
           }
         </View>
-      </View>
-      <TouchableHighlight
-        onPress={() => {
-          auth.signOut()
-          .catch((error) => {
-            console.log('Error when signing out', error);
-          });
-        }}
-        style={styles.logoutButton}>
 
-        <Text style={{color: '#fff'}}>
-          Log Out
-        </Text>
+        <TouchableHighlight
+          onPress={() => {
+            auth.signOut()
+            .catch((error) => {
+              console.log('Error when signing out', error);
+            });
+          }}
+          style={styles.logoutButton}>
 
-      </TouchableHighlight>
+          <Text style={{color: '#fff'}}>
+            LOG OUT
+          </Text>
 
+        </TouchableHighlight>
+        </View>
       </View>
     );
   }
@@ -86,10 +86,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'darkorange',
     padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 15,
+    paddingRight: 15,
     backgroundColor: 'darkorange',
     marginTop: 80,
+    width: '100%',
+    height: 30,
+    alignItems: 'center'
   },
   basicText: {
     fontSize: 12,
