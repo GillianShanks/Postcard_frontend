@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
 export default class NotificationItem extends React.Component {
   constructor (props) {
@@ -19,6 +19,7 @@ export default class NotificationItem extends React.Component {
         <Text style={styles.biggerText}>{notif.customer}</Text>
         <Text style={styles.basicText}>Type of act</Text>
         <Text style={styles.biggerText}>{notif.type}</Text>
+        <TouchableOpacity style={styles.button}><Text>ACCEPT</Text></TouchableOpacity>
       </View>
     )
   }
@@ -43,5 +44,14 @@ const styles = StyleSheet.create({
     color: '#e8effa',
     fontSize: 18,
     marginBottom: 5,
+  },
+  button: {
+    width: '100%',
+    height: 30,
+    color: '#000',
+    backgroundColor: 'orange',
+    marginTop: 10,
+    padding: 5,
+    alignItems: 'center'
   }
 })

@@ -49,7 +49,7 @@ class ProfileScreen extends React.Component {
           }}
           style={styles.logoutButton}>
 
-          <Text style={{color: '#fff'}}>
+          <Text style={{color: '#000'}}>
             LOG OUT
           </Text>
 
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     marginTop: 80,
     width: '100%',
     height: 30,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   basicText: {
     fontSize: 12,
