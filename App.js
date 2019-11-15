@@ -312,7 +312,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#0b1424'
   },
   headerContent: {
-    flex: 'row',
     marginBottom: 20,
     marginRight: 20,
   }
